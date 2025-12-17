@@ -4,7 +4,7 @@
 #include "Character/LabPawnExtensionComponent.h"
 
 #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 
 
 ULabPawnExtensionComponent::ULabPawnExtensionComponent()
@@ -54,11 +54,6 @@ void ULabPawnExtensionComponent::InitializeAbilitySystem(ULabAbilitySystemCompon
 	AbilitySystemComponent = InASC;
 	AbilitySystemComponent->InitAbilityActorInfo(InOwnerActor, Pawn);
 
-	// if (ensure(PawnData))
-	// {
-	// 	InASC->SetTagRelationshipMapping(PawnData->TagRelationshipMapping);
-	// }
-
 	OnAbilitySystemInitialized.Broadcast();
 }
 
@@ -93,5 +88,28 @@ void ULabPawnExtensionComponent::UninitializeAbilitySystem()
 	}
 
 	AbilitySystemComponent = nullptr;
+}
+
+void ULabPawnExtensionComponent::OnAbilitySystemInitialized_RegisterAndCall(
+	FSimpleMulticastDelegate::FDelegate Delegate)
+{
+	if (!OnAbilitySystemInitialized.IsBoundToObject(Delegate.GetUObject()))
+	{
+		OnAbilitySystemInitialized.Add(Delegate);
+	}
+
+	if (AbilitySystemComponent)
+	{
+		Delegate.Execute();
+	}
+}
+
+void ULabPawnExtensionComponent::OnAbilitySystemUninitialized_Register(
+	FSimpleMulticastDelegate::FDelegate Delegate)
+{
+	if (!OnAbilitySystemUninitialized.IsBoundToObject(Delegate.GetUObject()))
+	{
+		OnAbilitySystemUninitialized.Add(Delegate);
+	}
 }
 

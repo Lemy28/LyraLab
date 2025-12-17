@@ -4,7 +4,7 @@
 #include "AbilitySystem/LyraLabAbilitySet.h"
 
 #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
 void FLyraAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbilitySpecHandle& Handle)

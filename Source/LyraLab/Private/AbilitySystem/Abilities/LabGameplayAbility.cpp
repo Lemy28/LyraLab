@@ -4,7 +4,7 @@
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
 #include "AbilitySystemComponent.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabHeroComponent.h"
 #include "Player/LabPlayerController.h"

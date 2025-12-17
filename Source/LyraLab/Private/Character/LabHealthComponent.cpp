@@ -4,7 +4,7 @@
 #include "Character/LabHealthComponent.h"
 
 #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/LabHealthSet.h"
 
 
@@ -34,14 +34,14 @@ void ULabHealthComponent::InitializeWithAbilitySystem(ULabAbilitySystemComponent
 	AbilitySystemComponent = InASC;
 	if (!AbilitySystemComponent)
 	{
-		UE_LOG(LogLab, Error, TEXT("LyraHealthComponent: Cannot initialize health component for owner [%s] with NULL ability system."), *GetNameSafe(Owner));
+		UE_LOG(LogLab, Error, TEXT("LabHealthComponent: Cannot initialize health component for owner [%s] with NULL ability system."), *GetNameSafe(Owner));
 		return;
 	}
 
 	HealthSet = AbilitySystemComponent->GetSet<ULabHealthSet>();
 	if (!HealthSet)
 	{
-		UE_LOG(LogLab, Error, TEXT("LyraHealthComponent: Cannot initialize health component for owner [%s] with NULL health set on the ability system."), *GetNameSafe(Owner));
+		UE_LOG(LogLab, Error, TEXT("LabHealthComponent: Cannot initialize health component for owner [%s] with NULL health set on the ability system."), *GetNameSafe(Owner));
 		return;
 	}
 	

@@ -3,7 +3,7 @@
 
 #include "Player/LabPlayerController.h"
 
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabPawnExtensionComponent.h"
 #include "Player/LabPlayerState.h"

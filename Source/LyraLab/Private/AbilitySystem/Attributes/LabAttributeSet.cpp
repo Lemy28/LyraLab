@@ -4,7 +4,7 @@
 #include "AbilitySystem/Attributes/LabAttributeSet.h"
 // #include "LabAttributeSet.h"
 
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 
 ULabAttributeSet::ULabAttributeSet()
 {

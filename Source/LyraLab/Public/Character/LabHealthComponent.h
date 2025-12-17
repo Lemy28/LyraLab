@@ -21,6 +21,7 @@ public:
 	// Sets default values for this component's properties
 	ULabHealthComponent();
 
+	UFUNCTION(BlueprintCallable)
 	static ULabHealthComponent* FindLabHealthComponent(const AActor* Actor){return Actor ? Actor->FindComponentByClass<ULabHealthComponent>() : nullptr;}
 	void InitializeWithAbilitySystem(ULabAbilitySystemComponent* InASC);
 	

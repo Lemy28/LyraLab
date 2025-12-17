@@ -1,7 +1,7 @@
 // Copyright Lemy. All Rights Reserved.
 
 
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
 

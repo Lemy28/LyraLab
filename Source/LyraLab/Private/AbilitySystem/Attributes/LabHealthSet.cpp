@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Attributes/LabHealthSet.h"
 
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 // #include "LabHealthSet.h"
 
@@ -60,6 +60,7 @@ void ULabHealthSet::PostAttributeChange(const FGameplayAttribute &Attribute, flo
 void ULabHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(ULabHealthSet, Health, OldValue);
+	
 }
 
 void ULabHealthSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)

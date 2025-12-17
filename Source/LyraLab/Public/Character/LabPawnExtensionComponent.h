@@ -21,7 +21,7 @@ public:
 	static ULabPawnExtensionComponent* FindPawnExtensionComponent(const AActor* Actor) { return (Actor ? Actor->FindComponentByClass<ULabPawnExtensionComponent>() : nullptr); }
 	/** Gets the current ability system component, which may be owned by a different actor */
 	UFUNCTION(BlueprintPure, Category = "Lab|Pawn")
-	ULabAbilitySystemComponent* GetLyraAbilitySystemComponent() const { return AbilitySystemComponent; }
+	ULabAbilitySystemComponent* GetLabAbilitySystemComponent() const { return AbilitySystemComponent; }
 	
 	/** Should be called by the owning pawn to become the avatar of the ability system. */
 	void InitializeAbilitySystem(ULabAbilitySystemComponent* InASC, AActor* InOwnerActor);
@@ -30,11 +30,11 @@ public:
 	void UninitializeAbilitySystem();
 
 
-	// /** Register with the OnAbilitySystemInitialized delegate and broadcast if our pawn has been registered with the ability system component */
-	// UE_API void OnAbilitySystemInitialized_RegisterAndCall(FSimpleMulticastDelegate::FDelegate Delegate);
-	//
-	// /** Register with the OnAbilitySystemUninitialized delegate fired when our pawn is removed as the ability system's avatar actor */
-	// UE_API void OnAbilitySystemUninitialized_Register(FSimpleMulticastDelegate::FDelegate Delegate);
+	/** Register with the OnAbilitySystemInitialized delegate and broadcast if our pawn has been registered with the ability system component */
+	void OnAbilitySystemInitialized_RegisterAndCall(FSimpleMulticastDelegate::FDelegate Delegate);
+	
+	/** Register with the OnAbilitySystemUninitialized delegate fired when our pawn is removed as the ability system's avatar actor */
+	void OnAbilitySystemUninitialized_Register(FSimpleMulticastDelegate::FDelegate Delegate);
 protected:
 	/** Delegate fired when our pawn becomes the ability system's avatar actor */
 	FSimpleMulticastDelegate OnAbilitySystemInitialized;
