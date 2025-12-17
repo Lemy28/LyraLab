@@ -1,10 +1,11 @@
 ﻿// Copyright Lemy. All Rights Reserved.
 
 
-#include "AbilitySystem/Attributes/LabHealthAttributeSet.h"
+#include "AbilitySystem/Attributes/LabHealthSet.h"
 
+#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
-#include "LabHealthSet.h"
+// #include "LabHealthSet.h"
 
 ULabHealthSet::ULabHealthSet()
 {
@@ -20,9 +21,9 @@ void ULabHealthSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
 	DOREPLIFETIME(ThisClass, MaxHealth)
 }
 
-void ULabHealthSet::PreBaseAttributeChange(const FGameplayAttribute &Attribute, float &NewValue) const
+void ULabHealthSet::PreAttributeBaseChange(const FGameplayAttribute &Attribute, float &NewValue) const
 {
-	Super::PreBaseAttributeChange(Attribute, NewValue);
+	Super::PreAttributeBaseChange(Attribute, NewValue);
 
 	ClampAttribute(Attribute, NewValue);
 }
@@ -42,27 +43,31 @@ void ULabHealthSet::PostAttributeChange(const FGameplayAttribute &Attribute, flo
 	{
 		if (GetHealth() > NewValue)
 		{
-			// SetHealth(NewValue); why not use SetHealth directly?
-
+			// SetHealth(NewValue); why not use SetHealth directly?  SetNumericAttributeBase?
+			//well, this is almost the same thing
 			ULabAbilitySystemComponent* LabASC = GetLabAbilitySystemComponent();
 			check(LabASC);
+
+			// this modifier directly mods the base value instead of that typical GE channel
 			LabASC->ApplyModToAttribute(GetHealthAttribute(), EGameplayModOp::Override, NewValue);
+		
 		}
+		
 	}
 
 }
 
 void ULabHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
-	
+	GAMEPLAYATTRIBUTE_REPNOTIFY(ULabHealthSet, Health, OldValue);
 }
 
 void ULabHealthSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
-	
+	GAMEPLAYATTRIBUTE_REPNOTIFY(ULabHealthSet, Health, OldValue);
 }
 
-void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue)
+void ULabHealthSet::ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	if (Attribute == GetHealthAttribute())
 	{

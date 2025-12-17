@@ -9,7 +9,7 @@
 #include "AbilitySystem/LyraLabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabPawnExtensionComponent.h"
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 #include "Input/LabInputComponent.h"
 
 
@@ -31,7 +31,7 @@ void ULabHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompon
 	check(InputConfig)
 	ACharacter* Owner = GetOwner<ACharacter>();
 	check(Owner)
-	ALyraLabPlayerController* LyraLabPlayerController = Owner->GetController<ALyraLabPlayerController>();
+	ALabPlayerController* LyraLabPlayerController = Owner->GetController<ALabPlayerController>();
 	if (LyraLabPlayerController)
 	{
 		ULocalPlayer* LocalPlayer = LyraLabPlayerController->GetLocalPlayer();

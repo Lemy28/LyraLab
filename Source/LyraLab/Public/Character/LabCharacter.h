@@ -8,6 +8,8 @@
 #include "GameFramework/Character.h"
 #include "LabCharacter.generated.h"
 
+class ALabPlayerController;
+class ALabPlayerState;
 class ULabHealthComponent;
 class UAlsCameraComponent;
 class ULabHeroComponent;
@@ -39,8 +41,11 @@ class LYRALAB_API ALabCharacter : public AAlsCharacter, public IAbilitySystemInt
 {
 	GENERATED_BODY()
 public:
-	ALabCharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-
+	ALabCharacter();
+	
+	ALabPlayerState* GetLabPlayerState();
+	ALabPlayerController* GetLabPlayerController();
+	
 	//~ Begin AActor Interface.
 	virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
 	//~ End AActor Interface.

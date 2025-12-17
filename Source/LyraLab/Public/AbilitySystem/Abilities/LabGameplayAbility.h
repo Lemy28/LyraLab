@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
-#include "LyraLabGameplayAbility.generated.h"
+#include "LabGameplayAbility.generated.h"
 
+class ALabPlayerController;
 class ALabCharacter;
 class ULabHeroComponent;
 /**
@@ -29,7 +30,7 @@ enum class ELyraAbilityActivationPolicy : uint8
  * 
  */
 UCLASS(Abstract, HideCategories = Input, Meta = (ShortTooltip = "The base gameplay ability class used by this project."))
-class LYRALAB_API ULyraLabGameplayAbility : public UGameplayAbility
+class LYRALAB_API ULabGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 	friend class ULabAbilitySystemComponent;
@@ -39,13 +40,13 @@ public:
 	ULabAbilitySystemComponent* GetLyraAbilitySystemComponentFromActorInfo() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Ability")
-	ALyraLabPlayerController* GetLyraPlayerControllerFromActorInfo() const;
+	ALabPlayerController* GetLabPlayerControllerFromActorInfo() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Ability")
 	AController* GetControllerFromActorInfo() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Ability")
-	ALabCharacter* GetLyraCharacterFromActorInfo() const;
+	ALabCharacter* GetLabCharacterFromActorInfo() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Ability")
 	ULabHeroComponent* GetHeroComponentFromActorInfo() const;

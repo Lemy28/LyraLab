@@ -30,13 +30,13 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
 
-	virtual void PreBaseAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
+	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
 
 
 
-	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue);
+	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const;
 
 private:
 	

@@ -1,33 +1,33 @@
 // Copyright Lemy. All Rights Reserved.
 
 
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 
 #include "AbilitySystem/LyraLabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabPawnExtensionComponent.h"
 #include "Player/LabPlayerState.h"
 
-ULabAbilitySystemComponent* ALyraLabPlayerController::GetLyraAbilitySystemComponent() const
+ULabAbilitySystemComponent* ALabPlayerController::GetLabAbilitySystemComponent() const
 {
-	const ALabPlayerState* LyraPS = GetLyraPlayerState();
-	return (LyraPS ? LyraPS->GetLabAbilitySystemComponent() : nullptr);
+	const ALabPlayerState* PS = GetLabPlayerState();
+	return (PS ? PS->GetLabAbilitySystemComponent() : nullptr);
 }
 
-ALabPlayerState* ALyraLabPlayerController::GetLyraPlayerState() const
+ALabPlayerState* ALabPlayerController::GetLabPlayerState() const
 {
 	return CastChecked<ALabPlayerState>(PlayerState, ECastCheckedType::NullAllowed);
 }
 
-void ALyraLabPlayerController::PreProcessInput(const float DeltaTime, const bool bGamePaused)
+void ALabPlayerController::PreProcessInput(const float DeltaTime, const bool bGamePaused)
 {
 	Super::PreProcessInput(DeltaTime, bGamePaused);
 
 }
 
-void ALyraLabPlayerController::PostProcessInput(const float DeltaTime, const bool bGamePaused)
+void ALabPlayerController::PostProcessInput(const float DeltaTime, const bool bGamePaused)
 {
-	if (ULabAbilitySystemComponent* LyraASC = GetLyraAbilitySystemComponent())
+	if (ULabAbilitySystemComponent* LyraASC = GetLabAbilitySystemComponent())
 	{
 		LyraASC->ProcessAbilityInput(DeltaTime, bGamePaused);
 	}
@@ -52,7 +52,7 @@ void ALyraLabPlayerController::PostProcessInput(const float DeltaTime, const boo
 	
 }
 
-void ALyraLabPlayerController::AcknowledgePossession(class APawn* P)
+void ALabPlayerController::AcknowledgePossession(class APawn* P)
 {
 	Super::AcknowledgePossession(P);
 	ULabPawnExtensionComponent* PawnExtensionComponent = ULabPawnExtensionComponent::FindPawnExtensionComponent(P);

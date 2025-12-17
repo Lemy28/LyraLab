@@ -30,7 +30,7 @@ bool ULyraLabGameplayAbility_Jump::CanActivateAbility(const FGameplayAbilitySpec
 
 void ULyraLabGameplayAbility_Jump::CharacterJumpStart()
 {
-	if (ALabCharacter* LyraCharacter = GetLyraCharacterFromActorInfo())
+	if (ALabCharacter* LyraCharacter = GetLabCharacterFromActorInfo())
 	{
 		if (LyraCharacter->IsLocallyControlled() && !LyraCharacter->bPressedJump)
 		{
@@ -42,7 +42,7 @@ void ULyraLabGameplayAbility_Jump::CharacterJumpStart()
 
 void ULyraLabGameplayAbility_Jump::CharacterJumpStop()
 {
-	if (ALabCharacter* LyraCharacter = GetLyraCharacterFromActorInfo())
+	if (ALabCharacter* LyraCharacter = GetLabCharacterFromActorInfo())
 	{
 		if (LyraCharacter->IsLocallyControlled() && LyraCharacter->bPressedJump)
 		{

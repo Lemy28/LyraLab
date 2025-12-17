@@ -13,7 +13,7 @@
 #include "Character/LabPawnExtensionComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameModes/LyraLabGameMode.h"
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 #include "Input/LabInputComponent.h"
 #include "Input/LabInputConfig.h"
 #include "Net/UnrealNetwork.h"
@@ -21,7 +21,7 @@
 
 
 // Sets default values
-ALabCharacter::ALabCharacter(const FObjectInitializer& ObjectInitializer )
+ALabCharacter::ALabCharacter()
 	// : Super(ObjectInitializer.SetDefaultSubobjectClass<ULyraLabCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	// PrimaryActorTick.bCanEverTick = false;
@@ -80,6 +80,16 @@ ALabCharacter::ALabCharacter(const FObjectInitializer& ObjectInitializer )
 	// CrouchedEyeHeight = 50.0f;
 }
 
+ALabPlayerState* ALabCharacter::GetLabPlayerState()
+{
+	return CastChecked<ALabPlayerState>(GetPlayerState());
+}
+
+ALabPlayerController* ALabCharacter::GetLabPlayerController()
+{
+	return CastChecked<ALabPlayerController>(GetController());
+}
+
 void ALabCharacter::PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker)
 {
 	Super::PreReplication(ChangedPropertyTracker);
@@ -115,20 +125,20 @@ void ALabCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	
-	ALyraLabPlayerController* PC = CastChecked<ALyraLabPlayerController>(NewController);
+	ALabPlayerController* PC = CastChecked<ALabPlayerController>(NewController);
 	ULabPawnExtensionComponent* PawnExtensionComponent = ULabPawnExtensionComponent::FindPawnExtensionComponent(this);
-	ALabPlayerState* LyraPS = GetPlayerState<ALabPlayerState>();
+	ALabPlayerState* PS = GetPlayerState<ALabPlayerState>();
 
-	if (!ensure(LyraPS))
+	if (!ensure(PS))
 	{
 		return;
 	}
 	
-	if (ULabAbilitySystemComponent* LyraASC = PC->GetLyraAbilitySystemComponent())
+	if (ULabAbilitySystemComponent* AbilitySystemComponent = PC->GetLabAbilitySystemComponent())
 	{
 		if (PawnExtensionComponent)
 		{
-			PawnExtensionComponent->InitializeAbilitySystem(LyraASC, LyraPS);
+			PawnExtensionComponent->InitializeAbilitySystem(AbilitySystemComponent, PS);
 		}
 	}
 	
@@ -136,7 +146,7 @@ void ALabCharacter::PossessedBy(AController* NewController)
 	{
 		if (const ULyraLabPawnData* NewPawnData = LyraGameMode->GetPawnDataForController(GetController()))
 		{
-			LyraPS->SetPawnData(NewPawnData);
+			PS->SetPawnData(NewPawnData);
 		}
 	}
 
