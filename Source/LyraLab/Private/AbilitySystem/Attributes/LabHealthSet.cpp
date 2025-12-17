@@ -4,11 +4,12 @@
 #include "AbilitySystem/Attributes/LabHealthAttributeSet.h"
 
 #include "Net/UnrealNetwork.h"
+#include "LabHealthSet.h"
 
 ULabHealthSet::ULabHealthSet()
 {
-	InitHealth(200);
-	InitMaxHealth(200);
+	InitMaxHealth(1000);
+	InitHealth(1000);
 }
 
 void ULabHealthSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -19,8 +20,37 @@ void ULabHealthSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
 	DOREPLIFETIME(ThisClass, MaxHealth)
 }
 
+void ULabHealthSet::PreBaseAttributeChange(const FGameplayAttribute &Attribute, float &NewValue) const
+{
+	Super::PreBaseAttributeChange(Attribute, NewValue);
 
+	ClampAttribute(Attribute, NewValue);
+}
 
+void ULabHealthSet::PreAttributeChange(const FGameplayAttribute &Attribute, float &NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	ClampAttribute(Attribute, NewValue);
+}
+
+void ULabHealthSet::PostAttributeChange(const FGameplayAttribute &Attribute, float OldValue, float NewValue)
+{
+	Super::PostAttributeChange(Attribute, OldValue, NewValue);
+
+	if (Attribute == GetMaxHealthAttribute())
+	{
+		if (GetHealth() > NewValue)
+		{
+			// SetHealth(NewValue); why not use SetHealth directly?
+
+			ULabAbilitySystemComponent* LabASC = GetLabAbilitySystemComponent();
+			check(LabASC);
+			LabASC->ApplyModToAttribute(GetHealthAttribute(), EGameplayModOp::Override, NewValue);
+		}
+	}
+
+}
 
 void ULabHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
@@ -30,4 +60,16 @@ void ULabHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 void ULabHealthSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	
+}
+
+void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	if (Attribute == GetHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+	}
+	else if (Attribute == GetMaxHealthAttribute())
+	{
+		NewValue = FMath::Max(NewValue, 1.0f);
+	}
 }

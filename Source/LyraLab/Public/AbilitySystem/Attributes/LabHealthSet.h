@@ -30,11 +30,19 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
 
+	virtual void PreBaseAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
+
+
+
+	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue);
+
 private:
 	
-	UPROPERTY(BlueprintReadOnly, Category = "Lab|Health", ReplicatedUsing = "OnRep_Health", meta = (AllowPrivateAccess = true) )
+	UPROPERTY(BlueprintReadOnly, Category = "Lab|Health", ReplicatedUsing = OnRep_Health, meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData Health;
-	UPROPERTY(BlueprintReadOnly, Category = "Lab|Health", ReplicatedUsing = "OnRep_MaxHealth", meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = "Lab|Health", ReplicatedUsing = OnRep_MaxHealth, meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData MaxHealth;
 	
 	//meta attribute on server

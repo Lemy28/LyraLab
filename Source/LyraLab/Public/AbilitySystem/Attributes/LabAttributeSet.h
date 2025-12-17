@@ -6,7 +6,9 @@
 #include "AttributeSet.h"
 #include "LabAttributeSet.generated.h"
 
+
 struct FGameplayEffectSpec;
+class ULabAbilitySystemComponent;
 /** 
  * Delegate used to broadcast attribute events, some of these parameters may be null on clients: 
  * @param EffectInstigator	The original instigating actor for this event
@@ -26,4 +28,10 @@ UCLASS()
 class LYRALAB_API ULabAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
+public:
+
+	ULabAttributeSet();
+
+protected:
+	ULabAbilitySystemComponent* GetLabAbilitySystemComponent() const;
 };
