@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Abilities/LyraLabGameplayAbility.h"
+#include "AbilitySystem/Abilities/LabGameplayAbility.h"
 #include "LyraLabGameplayAbility_Interact.generated.h"
 
 class UIndicatorDescriptor;
@@ -13,7 +13,7 @@ struct FInteractionOption;
  * 
  */
 UCLASS()
-class LYRALAB_API ULyraLabGameplayAbility_Interact : public ULyraLabGameplayAbility
+class LYRALAB_API ULyraLabGameplayAbility_Interact : public ULabGameplayAbility
 {
 	GENERATED_BODY()
 public:

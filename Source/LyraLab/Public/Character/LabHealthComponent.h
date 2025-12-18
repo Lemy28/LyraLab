@@ -10,7 +10,7 @@ struct FGameplayEffectSpec;
 class ULabAbilitySystemComponent;
 class ULabHealthSet;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FHealthChangedEvent, ULabHealthComponent*, HealthComponent, AActor*, Instigator, float, OldValue, float, NewValue)
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FHealthChangedEvent, ULabHealthComponent*, HealthComponent, AActor*, Instigator, float, OldValue, float, NewValue);
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class LYRALAB_API ULabHealthComponent : public UActorComponent
@@ -21,7 +21,8 @@ public:
 	// Sets default values for this component's properties
 	ULabHealthComponent();
 
-	static ULabHealthComponent* FindComponent(const AActor* Actor){return Actor ? Actor->FindComponentByClass<ULabHealthComponent>() : nullptr;}
+	UFUNCTION(BlueprintCallable)
+	static ULabHealthComponent* FindLabHealthComponent(const AActor* Actor){return Actor ? Actor->FindComponentByClass<ULabHealthComponent>() : nullptr;}
 	void InitializeWithAbilitySystem(ULabAbilitySystemComponent* InASC);
 	
 public:

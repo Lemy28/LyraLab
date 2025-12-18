@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "LyraLabAbilitySystemComponent.generated.h"
+#include "LabAbilitySystemComponent.generated.h"
 
 /**
  * 

@@ -5,7 +5,7 @@
 
 #include "LabLogChannels.h"
 #include "AbilitySystem/LyraLabAbilitySet.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/LabHealthSet.h"
 #include "Character/LLPawnData.h"
 #include "Kismet/GameplayStatics.h"

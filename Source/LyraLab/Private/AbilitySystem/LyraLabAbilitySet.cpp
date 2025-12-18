@@ -4,8 +4,8 @@
 #include "AbilitySystem/LyraLabAbilitySet.h"
 
 #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
-#include "AbilitySystem/Abilities/LyraLabGameplayAbility.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
 void FLyraAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbilitySpecHandle& Handle)
 {
@@ -110,7 +110,7 @@ void ULyraLabAbilitySet::GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC
 			continue;
 		}
 
-		ULyraLabGameplayAbility* AbilityCDO = AbilityToGrant.Ability->GetDefaultObject<ULyraLabGameplayAbility>();
+		ULabGameplayAbility* AbilityCDO = AbilityToGrant.Ability->GetDefaultObject<ULabGameplayAbility>();
 
 		FGameplayAbilitySpec AbilitySpec(AbilityCDO, AbilityToGrant.AbilityLevel);
 		AbilitySpec.SourceObject = SourceObject;

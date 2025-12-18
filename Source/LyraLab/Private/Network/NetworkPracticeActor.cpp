@@ -13,7 +13,7 @@ ANetworkPracticeActor::ANetworkPracticeActor()
     // [Chapter 1] 调整优先级和频率
     // 我们把它设得比 Pawn 低，但比普通背景物体高
     NetPriority = 2.0f;
-    NetUpdateFrequency = 10.0f; // 每秒只同步10次，节省 CPU
+    // NetUpdateFrequency = 10.0f; // 每秒只同步10次，节省 CPU
 
     SecretCode = 999;
     UpdateTimer = 0.0f;

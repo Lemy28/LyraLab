@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Abilities/LyraLabGameplayAbility.h"
+#include "AbilitySystem/Abilities/LabGameplayAbility.h"
 #include "LyraLabGameplayAbility_Jump.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class LYRALAB_API ULyraLabGameplayAbility_Jump : public ULyraLabGameplayAbility
+class LYRALAB_API ULyraLabGameplayAbility_Jump : public ULabGameplayAbility
 {
 	GENERATED_BODY()
 

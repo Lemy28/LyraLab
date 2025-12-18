@@ -8,43 +8,28 @@
 #include "GameFramework/Character.h"
 #include "LabCharacter.generated.h"
 
+class ALabPlayerController;
+class ALabPlayerState;
 class ULabHealthComponent;
 class UAlsCameraComponent;
 class ULabHeroComponent;
 class ULabInputConfig;
 class ULabPawnExtensionComponent;
-
-
-/**
- * FLyraReplicatedAcceleration: Compressed representation of acceleration
- */
-USTRUCT()
-struct FLyraReplicatedAcceleration
-{
-	GENERATED_BODY()
-
-	UPROPERTY()
-	uint8 AccelXYRadians = 0;	// Direction of XY accel component, quantized to represent [0, 2*pi]
-
-	UPROPERTY()
-	uint8 AccelXYMagnitude = 0;	//Accel rate of XY component, quantized to represent [0, MaxAcceleration]
-
-	UPROPERTY()
-	int8 AccelZ = 0;	// Raw Z accel rate component, quantized to represent [-MaxAcceleration, MaxAcceleration]
-};
-
+class ULabAbilitySystemComponent;
 
 UCLASS()
 class LYRALAB_API ALabCharacter : public AAlsCharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 public:
-	ALabCharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-
-	//~ Begin AActor Interface.
-	virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
-	//~ End AActor Interface.
-
+	ALabCharacter();
+	
+	ALabPlayerState* GetLabPlayerState();
+	ALabPlayerController* GetLabPlayerController();
+	ULabAbilitySystemComponent* GetLabAbilitySystemComponent() const ;
+	/** Returns the ability system component to use for this actor. It may live on another actor, such as a Pawn using the PlayerState's component */
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent()const override;
+	
 	//~ Begin APawn Interface.
 	virtual void PawnClientRestart() override;
 	virtual void PossessedBy(AController* NewController) override;
@@ -56,6 +41,8 @@ public:
 	virtual void PostInitializeComponents() override;
 	
 protected:
+	virtual void OnAbilitySystemInitialized();
+	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Character|Camera")
 	TObjectPtr<UAlsCameraComponent> Camera;
 	
@@ -80,16 +67,8 @@ protected:
 	//Debug
 	
 public:
-	/** Returns the ability system component to use for this actor. It may live on another actor, such as a Pawn using the PlayerState's component */
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent()const;
 	
 	virtual void DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DisplayInfo, float& Unused, float& VerticalLocation) override;
-private:
-// 	UPROPERTY(Transient, ReplicatedUsing = OnRep_ReplicatedAcceleration)
-// 	FLyraReplicatedAcceleration ReplicatedAcceleration;
-//
-//
-// public:
-// 	UFUNCTION()
-// 	void OnRep_ReplicatedAcceleration();
+
+
 };

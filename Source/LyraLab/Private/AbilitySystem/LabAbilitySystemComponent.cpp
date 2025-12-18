@@ -1,9 +1,9 @@
 // Copyright Lemy. All Rights Reserved.
 
 
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 
-#include "AbilitySystem/Abilities/LyraLabGameplayAbility.h"
+#include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
 ULabAbilitySystemComponent::ULabAbilitySystemComponent()
 {
@@ -32,7 +32,7 @@ void ULabAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGame
 		{
 			if (AbilitySpec->Ability && !AbilitySpec->IsActive())
 			{
-				const ULyraLabGameplayAbility* LyraAbilityCDO = Cast<ULyraLabGameplayAbility>(AbilitySpec->Ability);
+				const ULabGameplayAbility* LyraAbilityCDO = Cast<ULabGameplayAbility>(AbilitySpec->Ability);
 				if (LyraAbilityCDO && LyraAbilityCDO->GetActivationPolicy() == ELyraAbilityActivationPolicy::WhileInputActive)
 				{
 					AbilitiesToActivate.AddUnique(AbilitySpec->Handle);
@@ -62,7 +62,7 @@ void ULabAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGame
 				}
 				else
 				{
-					const ULyraLabGameplayAbility* LyraAbilityCDO = Cast<ULyraLabGameplayAbility>(AbilitySpec->Ability);
+					const ULabGameplayAbility* LyraAbilityCDO = Cast<ULabGameplayAbility>(AbilitySpec->Ability);
 
 					if (LyraAbilityCDO && LyraAbilityCDO->GetActivationPolicy() == ELyraAbilityActivationPolicy::OnInputTriggered)
 					{
@@ -210,7 +210,7 @@ void ULabAbilitySystemComponent::TryActivateAbilitiesOnSpawn()
 {
 	for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 	{
-		if (ULyraLabGameplayAbility* LyraLabAbilityCDO = Cast<ULyraLabGameplayAbility>(AbilitySpec.Ability))
+		if (ULabGameplayAbility* LyraLabAbilityCDO = Cast<ULabGameplayAbility>(AbilitySpec.Ability))
 		{
 			LyraLabAbilityCDO->TryActivateAbilityOnSpawn(AbilityActorInfo.Get(), AbilitySpec);
 		}

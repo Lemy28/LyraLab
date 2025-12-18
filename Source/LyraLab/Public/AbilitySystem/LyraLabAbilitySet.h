@@ -10,7 +10,7 @@
 class ULabAbilitySystemComponent;
 struct FActiveGameplayEffectHandle;
 struct FGameplayAbilitySpecHandle;
-class ULyraLabGameplayAbility;
+class ULabGameplayAbility;
 class UGameplayEffect;
 class UAttributeSet;
 /**
@@ -27,7 +27,7 @@ public:
 
 	// Gameplay ability to grant.
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ULyraLabGameplayAbility> Ability = nullptr;
+	TSubclassOf<ULabGameplayAbility> Ability = nullptr;
 
 	// Level of ability to grant.
 	UPROPERTY(EditDefaultsOnly)

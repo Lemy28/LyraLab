@@ -6,10 +6,10 @@
 #include "EnhancedInputSubsystems.h"
 #include "LabGameplayTags.h"
 // #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabPawnExtensionComponent.h"
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 #include "Input/LabInputComponent.h"
 
 
@@ -31,7 +31,7 @@ void ULabHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompon
 	check(InputConfig)
 	ACharacter* Owner = GetOwner<ACharacter>();
 	check(Owner)
-	ALyraLabPlayerController* LyraLabPlayerController = Owner->GetController<ALyraLabPlayerController>();
+	ALabPlayerController* LyraLabPlayerController = Owner->GetController<ALabPlayerController>();
 	if (LyraLabPlayerController)
 	{
 		ULocalPlayer* LocalPlayer = LyraLabPlayerController->GetLocalPlayer();
@@ -62,7 +62,7 @@ void ULabHeroComponent::Input_AbilityInputTagPressed(FGameplayTag InputTag)
 	{
 		if (const ULabPawnExtensionComponent* PawnExtComp = ULabPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
 		{
-			if (ULabAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+			if (ULabAbilitySystemComponent* LyraASC = PawnExtComp->GetLabAbilitySystemComponent())
 			{
 				LyraASC->AbilityInputTagPressed(InputTag);
 			}
@@ -80,7 +80,7 @@ void ULabHeroComponent::Input_AbilityInputTagReleased(FGameplayTag InputTag)
 
 	if (const ULabPawnExtensionComponent* PawnExtComp = ULabPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
 	{
-		if (ULabAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+		if (ULabAbilitySystemComponent* LyraASC = PawnExtComp->GetLabAbilitySystemComponent())
 		{
 			LyraASC->AbilityInputTagReleased(InputTag);
 		}

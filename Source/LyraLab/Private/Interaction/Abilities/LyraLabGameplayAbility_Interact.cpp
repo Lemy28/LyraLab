@@ -9,7 +9,7 @@
 #include "Interaction/InteractionOption.h"
 #include "Interaction/InteractionStatics.h"
 #include "Interaction/Task/AbilityTask_GrantNearbyInteraction.h"
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 #include "UI/IndicatorSystem/IndicatorDescriptor.h"
 #include "UI/IndicatorSystem/LyraLabIndicatorManagerComponent.h"
 
@@ -39,7 +39,7 @@ void ULyraLabGameplayAbility_Interact::ActivateAbility(const FGameplayAbilitySpe
 void ULyraLabGameplayAbility_Interact::UpdateInteractions(
 	const TArray<FInteractionOption>& InteractiveOptions)
 {
-	if (ALyraLabPlayerController* PC = GetLyraPlayerControllerFromActorInfo())
+	if (ALabPlayerController* PC = GetLabPlayerControllerFromActorInfo())
 	{
 		if (ULyraLabIndicatorManagerComponent* IndicatorManager = ULyraLabIndicatorManagerComponent::GetComponent(PC))
 		{

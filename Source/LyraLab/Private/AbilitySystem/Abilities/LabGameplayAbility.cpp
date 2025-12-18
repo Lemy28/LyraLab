@@ -1,25 +1,25 @@
 ﻿// Copyright Lemy. All Rights Reserved.
 
 
-#include "AbilitySystem/Abilities/LyraLabGameplayAbility.h"
+#include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
 #include "AbilitySystemComponent.h"
-#include "AbilitySystem/LyraLabAbilitySystemComponent.h"
+#include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Character/LabCharacter.h"
 #include "Character/LabHeroComponent.h"
-#include "Player/LyraLabPlayerController.h"
+#include "Player/LabPlayerController.h"
 
-ULabAbilitySystemComponent* ULyraLabGameplayAbility::GetLyraAbilitySystemComponentFromActorInfo() const
+ULabAbilitySystemComponent* ULabGameplayAbility::GetLyraAbilitySystemComponentFromActorInfo() const
 {
 	return (CurrentActorInfo ? Cast<ULabAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent.Get()) : nullptr);
 }
 
-ALyraLabPlayerController* ULyraLabGameplayAbility::GetLyraPlayerControllerFromActorInfo() const
+ALabPlayerController* ULabGameplayAbility::GetLabPlayerControllerFromActorInfo() const
 {
-	return (CurrentActorInfo ? Cast<ALyraLabPlayerController>(CurrentActorInfo->PlayerController.Get()) : nullptr);
+	return (CurrentActorInfo ? Cast<ALabPlayerController>(CurrentActorInfo->PlayerController.Get()) : nullptr);
 }
 
-AController* ULyraLabGameplayAbility::GetControllerFromActorInfo() const
+AController* ULabGameplayAbility::GetControllerFromActorInfo() const
 {
 	if (CurrentActorInfo)
 	{
@@ -49,17 +49,17 @@ AController* ULyraLabGameplayAbility::GetControllerFromActorInfo() const
 	return nullptr;
 }
 
-ALabCharacter* ULyraLabGameplayAbility::GetLyraCharacterFromActorInfo() const
+ALabCharacter* ULabGameplayAbility::GetLabCharacterFromActorInfo() const
 {
 	return (CurrentActorInfo ? Cast<ALabCharacter>(CurrentActorInfo->AvatarActor.Get()) : nullptr);
 }
 
-ULabHeroComponent* ULyraLabGameplayAbility::GetHeroComponentFromActorInfo() const
+ULabHeroComponent* ULabGameplayAbility::GetHeroComponentFromActorInfo() const
 {
 	return (CurrentActorInfo ? ULabHeroComponent::FindHeroComponent(CurrentActorInfo->AvatarActor.Get()) : nullptr);
 }
 
-void ULyraLabGameplayAbility::TryActivateAbilityOnSpawn(const FGameplayAbilityActorInfo* ActorInfo,
+void ULabGameplayAbility::TryActivateAbilityOnSpawn(const FGameplayAbilityActorInfo* ActorInfo,
                                                         const FGameplayAbilitySpec& Spec) const
 {
 	// Try to activate if activation policy is on spawn.
