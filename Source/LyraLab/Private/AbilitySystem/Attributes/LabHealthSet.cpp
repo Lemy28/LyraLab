@@ -42,7 +42,11 @@ bool ULabHealthSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &Dat
 void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-
+	
+	const FGameplayEffectContextHandle& EffectContext = Data.EffectSpec.GetEffectContext();
+	AActor* Instigator = EffectContext.GetOriginalInstigator();
+	AActor* Causer = EffectContext.GetEffectCauser();
+	
 	float MinimumHealth = 0.0f;
 	//Consume the meta attribute
 
@@ -78,12 +82,12 @@ void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackDa
 
 	if (GetMaxHealth() != MaxHealthBeforeAttributeChange)
 	{
-		// OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
+		OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
 	}
 	// If health has actually changed activate callbacks 
 	if (GetHealth() != HealthBeforeAttributeChange)
 	{
-		// OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
+		OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
 	}
 
 	// Handle out of health on Server
