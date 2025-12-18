@@ -29,8 +29,7 @@ public:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
-
-	virtual bool PreGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
+	virtual bool PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
 
 	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
@@ -53,6 +52,11 @@ private:
 	FGameplayAttributeData Damage;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Lab|Health", meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData Healing;
+
+	float HealthBeforeAttributeChange {0.0f};
+	float MaxHealthBeforeAttributeChange {0.0f};
+	
+	bool bOutOfHealth {false};
 protected:
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldValue);

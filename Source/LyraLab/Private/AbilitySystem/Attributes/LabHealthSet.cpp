@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Attributes/LabHealthSet.h"
 
+#include "GameplayEffectExtension.h"
 #include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 // #include "LabHealthSet.h"
@@ -21,7 +22,7 @@ void ULabHealthSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
 	DOREPLIFETIME(ThisClass, MaxHealth)
 }
 
-bool ULabHealthSet::PreGameplayEffectExecute(const FGameplayEffectModCallbackData &Data)
+bool ULabHealthSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &Data)
 {
 	if (Super::PreGameplayEffectExecute(Data) == false)
 	{
@@ -42,7 +43,7 @@ void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackDa
 {
 	Super::PostGameplayEffectExecute(Data);
 
-	float MinimumHealth = 0.0f
+	float MinimumHealth = 0.0f;
 	//Consume the meta attribute
 
 	if (Data.EvaluatedData.Attribute == GetDamageAttribute())
@@ -65,7 +66,7 @@ void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackDa
 
 		SetHealing(0.0f);
 	}
-	else if (Data.EvaluatedData.Attribute == GetHealthAttribtue())
+	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		// Clamp and fall into out of health handling below
 		SetHealth(FMath::Clamp(GetHealth(), MinimumHealth, GetMaxHealth()));
@@ -77,92 +78,18 @@ void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackDa
 
 	if (GetMaxHealth() != MaxHealthBeforeAttributeChange)
 	{
-		OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
-	}
-	// If health has actually changed activate callbacks 
-	if (GetHealth() != HealthBeforeAttributeChange)
-	{
-		OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
-	}
-
-	// Handle out of health on Server
-	if ((GetHealth() <= 0.0f) && !bOutOfHealth)
-	{
-		OnOutOfHealth.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
-	}
-
-	// Check health again in case an event above changed it.
-	bOutOfHealth = (GetHealth() <= 0.0f);
-}
-
-bool ULabHealthSet::PreGameplayEffectExecute(const FGameplayEffectModCallbackData &Data)
-{
-	if (Super::PreGameplayEffectExecute(Data) == false)
-	{
-		return false;
-	}
-
-	//handle Damage and Healing meta attributes with state like immune, suicide, etc here
-
-
-	// Save the current health
-	HealthBeforeAttributeChange = GetHealth();
-	MaxHealthBeforeAttributeChange = GetMaxHealth();
-
-    return true;
-}
-
-void ULabHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data)
-{
-	Super::PostGameplayEffectExecute(Data);
-
-	float MinimumHealth = 0.0f
-	//Consume the meta attribute
-
-	if (Data.EvaluatedData.Attribute == GetDamageAttribute())
-	{
-		if (Data.EvaluatedData.Magnitude > 0.0f)
-		{
-			// Convert into -Health and then clamp
-			SetHealth(FMath::Clamp(GetHealth() - GetDamage(), MinimumHealth, GetMaxHealth()));
-		}
-
-		SetDamage(0.0f);
-	}
-	else if (Data.EvaluatedData.Attribute == GetHealingAttribute())
-	{
-		if (Data.EvaluatedData.Magnitude > 0.0f)
-		{
-			// Convert into +Health and then clamp
-			SetHealth(FMath::Clamp(GetHealth() + GetDamage(), MinimumHealth, GetMaxHealth()));
-		}
-
-		SetHealing(0.0f);
-	}
-	else if (Data.EvaluatedData.Attribute == GetHealthAttribtue())
-	{
-		// Clamp and fall into out of health handling below
-		SetHealth(FMath::Clamp(GetHealth(), MinimumHealth, GetMaxHealth()));
-	}
-	else if (Data.EvaluatedData.Attribute == GetMaxHealthAttribute())
-	{
 		// OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
 	}
-
-	if (GetMaxHealth() != MaxHealthBeforeAttributeChange)
-	{
-		OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
-	}
 	// If health has actually changed activate callbacks 
 	if (GetHealth() != HealthBeforeAttributeChange)
 	{
-		OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
+		// OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
 	}
 
 	// Handle out of health on Server
 	if ((GetHealth() <= 0.0f) && !bOutOfHealth)
 	{
-		OnOutOfHealth.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
+		// OnOutOfHealth.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());
 	}
 
 	// Check health again in case an event above changed it.
