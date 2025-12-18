@@ -30,11 +30,12 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
 
+	virtual bool PreGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
+
 	virtual void PreBaseAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
-
-
 
 	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue);
 
