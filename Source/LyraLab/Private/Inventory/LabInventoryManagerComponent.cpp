@@ -6,18 +6,16 @@
 #include "Inventory/LabInventoryItemInstance.h"
 #include "Net/UnrealNetwork.h"
 
-void FLabInventoryList::AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount)
+ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount)
 {
 	FLabInventoryEntry& NewEntry = Entries.AddDefaulted_GetRef();
 
 	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent);
 	NewEntry.StackCount = StackCount;
 
-	Entries.Add(NewEntry);
-	
 	MarkItemDirty(NewEntry);
-	MarkArrayDirty();
-}
+	return NewEntry.Instance;
+} 
 
 void FLabInventoryList::AddEntry(ULabInventoryItemInstance* InventoryItemInstance)
 {
@@ -36,11 +34,12 @@ void FLabInventoryList::RemoveEntry(ULabInventoryItemInstance* InventoryItemInst
 			return;
 		}
 	}
-	
 }
 
 ULabInventoryManagerComponent::ULabInventoryManagerComponent()
+	: InventoryList(this)
 {
+	
 }
 
 void ULabInventoryManagerComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const

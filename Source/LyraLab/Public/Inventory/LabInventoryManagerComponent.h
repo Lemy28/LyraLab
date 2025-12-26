@@ -9,6 +9,7 @@
 
 class ULabInventoryItemInstance;
 class ULabInventoryItemDefinition;
+class ULabInventoryManagerComponent;
 
 /** A single entry in an inventory */
 USTRUCT(BlueprintType)
@@ -45,10 +46,14 @@ USTRUCT(BlueprintType)
 struct FLabInventoryList : public FFastArraySerializer
 {
 	GENERATED_BODY()
-
+	
+	FLabInventoryList() {}
+	FLabInventoryList(ULabInventoryManagerComponent* OwnerComponent)
+		: OwnerComponent(OwnerComponent){}
+	
 	UPROPERTY()
 	TArray<FLabInventoryEntry> Entries;
-	void AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount);
+	ULabInventoryItemInstance* AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount);
 	void AddEntry(ULabInventoryItemInstance* InventoryItemInstance);
     void RemoveEntry(ULabInventoryItemInstance* InventoryItemInstance);
 
@@ -60,7 +65,7 @@ struct FLabInventoryList : public FFastArraySerializer
     }
 
 	UPROPERTY()
-	ULabInventoryManagerComponent* OwnerComponent;
+	ULabInventoryManagerComponent* OwnerComponent = nullptr;
 };
 
 /** 3. 开启自定义同步特性的开关 */
