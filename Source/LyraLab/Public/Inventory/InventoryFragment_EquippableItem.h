@@ -16,7 +16,7 @@ class LYRALAB_API UInventoryFragment_EquippableItem : public ULabInventoryFragme
 	GENERATED_BODY()
 	//Handled by EquipmentComponent
 	// virtual void OnInstanceCreated(ULabInventoryItemInstance* NewInstance) const override;
-	
+public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equippment")
 	TSubclassOf<ULabEquipmentDefinition> ItemDefinition;
 };

@@ -48,7 +48,7 @@ void FLabInventoryList::RemoveEntry(ULabInventoryItemInstance* InventoryItemInst
 ULabInventoryManagerComponent::ULabInventoryManagerComponent()
 	: InventoryList(this)
 {
-	
+	SetIsReplicatedByDefault(true);
 }
 
 void ULabInventoryManagerComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
