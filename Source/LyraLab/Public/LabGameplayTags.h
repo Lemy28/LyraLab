@@ -10,6 +10,7 @@ namespace  LabGameplayTags{
 	LYRALAB_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Crouch);
 	LYRALAB_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Jump);
 	LYRALAB_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_AutoRun);
+	LYRALAB_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Ability_Glide);
 	LYRALAB_API	FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString = false);
 
 	

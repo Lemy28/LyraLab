@@ -19,13 +19,6 @@ ULabHeroComponent::ULabHeroComponent()
 
 }
 
-// void ULyraLabHeroComponent::HandleChangeInitState(UGameFrameworkComponentManager* Manager, FGameplayTag CurrentState,
-// 	FGameplayTag DesiredState)
-// {
-// 	//test
-// 	UE_LOG(LogTemp, Warning, TEXT("Test For HandleChangeInitState"));
-// }
-
 void ULabHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputComponent)
 {
 	check(InputConfig)
@@ -43,16 +36,14 @@ void ULabHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompon
 		}
 	}
 	
-	ULabInputComponent* LyraLabInputComponent = CastChecked<ULabInputComponent>(PlayerInputComponent);
-	if (LyraLabInputComponent)
+	ULabInputComponent* LabInputComponent = CastChecked<ULabInputComponent>(PlayerInputComponent);
+	if (LabInputComponent)
 	{
 		TArray<uint32> BindHandles;
-		LyraLabInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+		LabInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
 
-		LyraLabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this , &ThisClass::Input_Move,true);
-		LyraLabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Look_Mouse, ETriggerEvent::Triggered, this , &ThisClass::Input_LookMouse, true);
-		LyraLabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Crouch, ETriggerEvent::Triggered, this , &ThisClass::Input_Crouch, true);
-		LyraLabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Jump, ETriggerEvent::Triggered, this , &ThisClass::Input_Jump, true);
+		LabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this , &ThisClass::Input_Move,true);
+		LabInputComponent->BindNativeAction(InputConfig, LabGameplayTags::InputTag_Look_Mouse, ETriggerEvent::Triggered, this , &ThisClass::Input_LookMouse, true);
 	}
 }
 
@@ -135,43 +126,43 @@ void ULabHeroComponent::Input_LookMouse(const FInputActionValue& InputActionValu
 	}
 }
 
-void ULabHeroComponent::Input_Crouch(const FInputActionValue& InputActionValue)
-{
-	AAlsCharacter* Character = GetOwner<AAlsCharacter>();
-	if (!Character)
-	{
-		return;
-	}
-	
-	if (Character->GetDesiredStance() == AlsStanceTags::Standing)
-	{
-		Character->SetDesiredStance(AlsStanceTags::Crouching);
-	}
-	else if (Character->GetDesiredStance() == AlsStanceTags::Crouching)
-	{
-		Character->SetDesiredStance(AlsStanceTags::Standing);
-	}
-}
-
-void ULabHeroComponent::Input_Jump(const FInputActionValue& InputActionValue)
-{
-	AAlsCharacter* Character = GetOwner<AAlsCharacter>();
-	if (!Character)
-	{
-		return;
-	}
-	
-	if (InputActionValue.Get<bool>())
-	{
-		if (Character->GetStance() == AlsStanceTags::Crouching)
-		{
-			Character->SetDesiredStance(AlsStanceTags::Standing);
-			return;
-		}
-		GetOwner<ACharacter>()->Jump();
-	}
-	else
-	{
-		GetOwner<ACharacter>()->StopJumping();
-	}
-}
+// void ULabHeroComponent::Input_Crouch(const FInputActionValue& InputActionValue)
+// {
+// 	AAlsCharacter* Character = GetOwner<AAlsCharacter>();
+// 	if (!Character)
+// 	{
+// 		return;
+// 	}
+// 	
+// 	if (Character->GetDesiredStance() == AlsStanceTags::Standing)
+// 	{
+// 		Character->SetDesiredStance(AlsStanceTags::Crouching);
+// 	}
+// 	else if (Character->GetDesiredStance() == AlsStanceTags::Crouching)
+// 	{
+// 		Character->SetDesiredStance(AlsStanceTags::Standing);
+// 	}
+// }
+//
+// void ULabHeroComponent::Input_Jump(const FInputActionValue& InputActionValue)
+// {
+// 	AAlsCharacter* Character = GetOwner<AAlsCharacter>();
+// 	if (!Character)
+// 	{
+// 		return;
+// 	}
+// 	
+// 	if (InputActionValue.Get<bool>())
+// 	{
+// 		if (Character->GetStance() == AlsStanceTags::Crouching)
+// 		{
+// 			Character->SetDesiredStance(AlsStanceTags::Standing);
+// 			return;
+// 		}
+// 		GetOwner<ACharacter>()->Jump();
+// 	}
+// 	else
+// 	{
+// 		GetOwner<ACharacter>()->StopJumping();
+// 	}
+// }

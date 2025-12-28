@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
 #include "Character/LabCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 // #include "AlsGameplayTags.h"
 
 ULabGA_Jump::ULabGA_Jump(const FObjectInitializer& ObjectInitializer)
@@ -16,6 +17,14 @@ ULabGA_Jump::ULabGA_Jump(const FObjectInitializer& ObjectInitializer)
 	
 	// The activation policy should be 'WhileInputActive' to get the InputReleased callback.
 	ActivationPolicy = ELyraAbilityActivationPolicy::WhileInputActive;
+}
+
+bool ULabGA_Jump::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags,
+	const FGameplayTagContainer* TargetTags, FGameplayTagContainer* OptionalRelevantTags) const
+{
+	ACharacter* Character = Cast<ACharacter>(GetAvatarActorFromActorInfo());
+	return !Character->GetCharacterMovement()->IsFalling() && Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags);
 }
 
 void ULabGA_Jump::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)

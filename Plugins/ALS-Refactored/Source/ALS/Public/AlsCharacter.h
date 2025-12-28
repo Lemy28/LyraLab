@@ -177,9 +177,8 @@ public:
 
 public:
 	const FGameplayTag& GetLocomotionMode() const;
-
-protected:
 	void SetLocomotionMode(const FGameplayTag& NewLocomotionMode);
+protected:
 
 	virtual void NotifyLocomotionModeChanged(const FGameplayTag& PreviousLocomotionMode);
 
@@ -218,8 +217,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ALS|Character", Meta = (AutoCreateRefTerm = "NewDesiredRotationMode"))
 	void SetDesiredRotationMode(const FGameplayTag& NewDesiredRotationMode);
 
-private:
 	void SetDesiredRotationMode(const FGameplayTag& NewDesiredRotationMode, bool bSendRpc);
+private:
 
 	UFUNCTION(Client, Reliable)
 	void ClientSetDesiredRotationMode(const FGameplayTag& NewDesiredRotationMode);
@@ -287,9 +286,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ALS|Character", Meta = (AutoCreateRefTerm = "NewDesiredGait"))
 	void SetDesiredGait(const FGameplayTag& NewDesiredGait);
-
-private:
+	
 	void SetDesiredGait(const FGameplayTag& NewDesiredGait, bool bSendRpc);
+private:
 
 	UFUNCTION(Client, Reliable)
 	void ClientSetDesiredGait(const FGameplayTag& NewDesiredGait);
@@ -301,6 +300,7 @@ private:
 
 public:
 	const FGameplayTag& GetGait() const;
+	bool CanSprint() const;
 
 protected:
 	void SetGait(const FGameplayTag& NewGait);
@@ -315,7 +315,6 @@ private:
 
 	FGameplayTag CalculateActualGait(const FGameplayTag& MaxAllowedGait) const;
 
-	bool CanSprint() const;
 
 	// Overlay Mode
 

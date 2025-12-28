@@ -12,6 +12,7 @@ namespace AlsLocomotionModeTags
 {
 	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Grounded)
 	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InAir)
+	// ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Glide)
 }
 
 namespace AlsRotationModeTags
@@ -50,6 +51,7 @@ namespace AlsOverlayModeTags
 	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Box)
 	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Barrel)
 	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GreatSword)
+	ALS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Glide)
 }
 
 namespace AlsLocomotionActionTags

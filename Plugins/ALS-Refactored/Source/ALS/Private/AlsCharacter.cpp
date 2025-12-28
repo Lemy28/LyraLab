@@ -487,11 +487,12 @@ void AAlsCharacter::OnMovementModeChanged(const EMovementMode PreviousMovementMo
 		case MOVE_NavWalking:
 			SetLocomotionMode(AlsLocomotionModeTags::Grounded);
 			break;
-
 		case MOVE_Falling:
 			SetLocomotionMode(AlsLocomotionModeTags::InAir);
 			break;
-
+		// case MOVE_Flying:
+		// 	SetLocomotionMode(AlsLocomotionModeTags::Glide);
+		// 	break;
 		default:
 			SetLocomotionMode(FGameplayTag::EmptyTag);
 			break;
@@ -630,7 +631,7 @@ void AAlsCharacter::SetDesiredRotationMode(const FGameplayTag& NewDesiredRotatio
 		return;
 	}
 
-	DesiredRotationMode = NewDesiredRotationMode;
+    	DesiredRotationMode = NewDesiredRotationMode;
 
 	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, DesiredRotationMode, this)
 

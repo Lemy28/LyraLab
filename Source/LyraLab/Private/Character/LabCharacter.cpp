@@ -128,6 +128,12 @@ void ALabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
+// void ALabCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
+// {
+// 	Super::OnMovementModeChanged(PrevMovementMode, PreviousCustomMode);
+// 	
+// }
+
 void ALabCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
