@@ -32,13 +32,13 @@ class LYRALAB_API ULabEquipmentDefinition : public UObject
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
+	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 	TSubclassOf<ULabEquipmentInstance> LabEquipmentInstance;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
+	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 	TArray<TObjectPtr<ULabAbilitySet>> AbilitySetsToGrant;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
+	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 	TArray<FLabEquippmentActorToSpawn> EquipmentActors;
 
 };
