@@ -12,7 +12,8 @@ ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventory
 
 	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent);
 	NewEntry.StackCount = StackCount;
-
+	NewEntry.Instance->SetItemDef(ItemDefinition);
+	
 	auto ItemCDO = ItemDefinition->GetDefaultObject<ULabInventoryItemDefinition>();
 	if (ItemCDO)
 	{

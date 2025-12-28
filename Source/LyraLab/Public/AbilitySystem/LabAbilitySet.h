@@ -4,7 +4,7 @@
 
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
-#include "LyraLabAbilitySet.generated.h"
+#include "LabAbilitySet.generated.h"
 
 
 class ULabAbilitySystemComponent;
@@ -117,13 +117,13 @@ protected:
  * 
  */
 UCLASS()
-class LYRALAB_API ULyraLabAbilitySet : public UPrimaryDataAsset
+class LYRALAB_API ULabAbilitySet : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
 public:
 
-	ULyraLabAbilitySet();
+	ULabAbilitySet();
 	// Grants the ability set to the specified ability system component.
 	// The returned handles can be used later to take away anything that was granted.
 	void GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC, FLyraAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject = nullptr) const;

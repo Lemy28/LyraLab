@@ -1,7 +1,7 @@
 ﻿// Copyright Lemy. All Rights Reserved.
 
 
-#include "AbilitySystem/LyraLabAbilitySet.h"
+#include "AbilitySystem/LabAbilitySet.h"
 
 #include "LabLogChannels.h"
 #include "AbilitySystem/LabAbilitySystemComponent.h"
@@ -64,11 +64,11 @@ void FLyraAbilitySet_GrantedHandles::TakeFromAbilitySystem(ULabAbilitySystemComp
 	GrantedAttributeSets.Reset();
 }
 
-ULyraLabAbilitySet::ULyraLabAbilitySet()
+ULabAbilitySet::ULabAbilitySet()
 {
 }
 
-void ULyraLabAbilitySet::GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC,
+void ULabAbilitySet::GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC,
                                         FLyraAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject) const
 {
 	check(LyraASC);

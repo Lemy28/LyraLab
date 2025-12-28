@@ -6,6 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "LabEquipmentDefinition.generated.h"
 
+class ULabEquipmentInstance;
+class ULabAbilitySet;
 class ULabGameplayAbility;
 
 USTRUCT()
@@ -29,13 +31,14 @@ UCLASS()
 class LYRALAB_API ULabEquipmentDefinition : public UObject
 {
 	GENERATED_BODY()
-
+public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
-	TArray<FLabEquippmentActorToSpawn> EquipmentActors;
+	TSubclassOf<ULabEquipmentInstance> LabEquipmentInstance;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
-	TArray<TSubclassOf<ULabGameplayAbility>> AbilitiesToGrant;
+	TArray<TObjectPtr<ULabAbilitySet>> AbilitySetsToGrant;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Equipment")
+	TArray<FLabEquippmentActorToSpawn> EquipmentActors;
 
-	UPROPERTY()
-	TArray<AActor*> SpawnedActors;
 };

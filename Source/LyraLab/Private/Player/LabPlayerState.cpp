@@ -4,7 +4,7 @@
 #include "Player/LabPlayerState.h"
 
 #include "LabLogChannels.h"
-#include "AbilitySystem/LyraLabAbilitySet.h"
+#include "AbilitySystem/LabAbilitySet.h"
 #include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/LabHealthSet.h"
 #include "Character/LLPawnData.h"
@@ -44,7 +44,7 @@ void ALabPlayerState::SetPawnData(const ULyraLabPawnData* InPawnData)
 	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, PawnData, this);
 	PawnData = InPawnData;
 
-	for (const ULyraLabAbilitySet* AbilitySet : PawnData->AbilitySets)
+	for (const ULabAbilitySet* AbilitySet : PawnData->AbilitySets)
 	{
 		if (AbilitySet)
 		{

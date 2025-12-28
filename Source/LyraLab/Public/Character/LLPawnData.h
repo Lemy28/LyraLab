@@ -7,7 +7,7 @@
 #include "LLPawnData.generated.h"
 
 class ULabInputConfig;
-class ULyraLabAbilitySet;
+class ULabAbilitySet;
 /**
  * 
  */
@@ -27,7 +27,7 @@ public:
 
 	// Ability sets to grant to this pawn's ability system.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lyra|Abilities")
-	TArray<TObjectPtr<ULyraLabAbilitySet>> AbilitySets;
+	TArray<TObjectPtr<ULabAbilitySet>> AbilitySets;
 
 	// // What mapping of ability tags to use for actions taking by this pawn
 	// UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lyra|Abilities")
