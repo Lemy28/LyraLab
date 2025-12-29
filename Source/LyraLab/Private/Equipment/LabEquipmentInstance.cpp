@@ -29,6 +29,7 @@ void ULabEquipmentInstance::SpawnEquipmentActors(const TArray<FLabEquipmentActor
 			NewActor->AttachToComponent(TargetComponent, FAttachmentTransformRules::KeepRelativeTransform, EquipmentActorToSpawn.AttachSocket);
 
 			SpawnedActors.Add(NewActor);
+			
 		}
 		
 	}

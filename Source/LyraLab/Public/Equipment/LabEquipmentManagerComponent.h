@@ -43,7 +43,7 @@ public:
 	ULabEquipmentInstance* AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
 private:
 	UPROPERTY()
-	TArray<FLabEquipmentEntry>	Entries;
+	TArray<FLabEquipmentEntry> Entries;
 
 	UPROPERTY(NotReplicated)
 	ULabEquipmentManagerComponent* OwnerComponent;
@@ -66,6 +66,12 @@ class LYRALAB_API ULabEquipmentManagerComponent : public UActorComponent
 public:
 	ULabEquipmentManagerComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Lab|Equipment")
+	void GetDefaultEquipment();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lab|Equipment")
+	TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition;
+	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 private:
 	UPROPERTY(Replicated)

@@ -14,16 +14,18 @@ FString FLabEquipmentEntry::GetDebugString()
 
 ULabEquipmentInstance* FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition)
 {
-	check(OwnerComponent != nullptr);
-	check(EquipmentDefinition)
-
+	check(OwnerComponent);
+	check(EquipmentDefinition != nullptr)
+	check(OwnerComponent->GetOwner()->HasAuthority())
+	
 	ULabEquipmentInstance* NewInstance = nullptr;
 	
 	FLabEquipmentEntry& NewEntry = Entries.AddDefaulted_GetRef();
 	auto DefaultObject = GetDefault<ULabEquipmentDefinition>(EquipmentDefinition);
 	// auto DefaultObject =  EquipmentDefinition->StaticClass()->GetDefaultObject<ULabEquipmentDefinition>();
-	NewInstance = NewObject<ULabEquipmentInstance>(OwnerComponent, DefaultObject->InstanceType);
-
+	//Using the actor instead of component as the outer due to UE-127172
+	NewInstance = NewObject<ULabEquipmentInstance>(OwnerComponent->GetOuter(), DefaultObject->InstanceType);
+	
 	NewEntry.Definition = EquipmentDefinition;
 	NewEntry.Instance = NewInstance;
 	//TODO: Grant Abilities
@@ -32,8 +34,8 @@ ULabEquipmentInstance* FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefi
 		
 	}
 	//Let the Instance Create Actors 
+	NewInstance->SpawnEquipmentActors(DefaultObject->EquipmentActors);
 	
-	NewInstance->SpawnEquipmentActors(&DefaultObject->EquipmentActors);
 	MarkItemDirty(NewEntry);
 	return NewInstance;	
 }
@@ -42,6 +44,11 @@ ULabEquipmentManagerComponent::ULabEquipmentManagerComponent()
 	: EquipmentList(this)
 {
 	SetIsReplicatedByDefault(true);
+}
+
+void ULabEquipmentManagerComponent::GetDefaultEquipment()
+{
+	EquipmentList.AddEntry(EquipmentDefinition);
 }
 
 void ULabEquipmentManagerComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const

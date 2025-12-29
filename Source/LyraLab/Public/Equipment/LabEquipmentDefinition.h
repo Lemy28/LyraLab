@@ -27,7 +27,7 @@ struct FLabEquipmentActorToSpawn
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, Abstract, Const)
 class LYRALAB_API ULabEquipmentDefinition : public UObject
 {
 	GENERATED_BODY()

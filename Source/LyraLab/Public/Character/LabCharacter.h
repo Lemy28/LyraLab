@@ -16,6 +16,7 @@ class ULabHeroComponent;
 class ULabInputConfig;
 class ULabPawnExtensionComponent;
 class ULabAbilitySystemComponent;
+class ULabEquipmentManagerComponent;
 
 UCLASS()
 class LYRALAB_API ALabCharacter : public AAlsCharacter, public IAbilitySystemInterface
@@ -52,7 +53,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	TObjectPtr<ULabHealthComponent> HealthComponent;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
+	TObjectPtr<ULabEquipmentManagerComponent> EquipmentComponent;
+
 private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Lyra|Character", Meta = (AllowPrivateAccess = "true"))

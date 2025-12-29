@@ -13,6 +13,7 @@
 #include "Character/LabHeroComponent.h"
 #include "Character/LabPawnExtensionComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Equipment/LabEquipmentManagerComponent.h"
 #include "GameModes/LyraLabGameMode.h"
 #include "Player/LabPlayerController.h"
 #include "Input/LabInputComponent.h"
@@ -33,6 +34,7 @@ ALabCharacter::ALabCharacter()
 
 	HeroComponent = CreateDefaultSubobject<ULabHeroComponent>(TEXT("LabHeroComponent"));
 	HealthComponent = CreateDefaultSubobject<ULabHealthComponent>(TEXT("LabHealthComponent"));
+	EquipmentComponent = CreateDefaultSubobject<ULabEquipmentManagerComponent>(TEXT("LabEquipmentManagerComponent"));
 }
 
 ALabPlayerState* ALabCharacter::GetLabPlayerState()
