@@ -11,7 +11,7 @@ class ULabAbilitySet;
 class ULabGameplayAbility;
 
 USTRUCT()
-struct FLabEquippmentActorToSpawn
+struct FLabEquipmentActorToSpawn
 {
 	GENERATED_BODY()
 
@@ -39,6 +39,6 @@ public:
 	TArray<TObjectPtr<ULabAbilitySet>> AbilitySetsToGrant;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
-	TArray<FLabEquippmentActorToSpawn> EquipmentActors;
+	TArray<FLabEquipmentActorToSpawn> EquipmentActors;
 
 };

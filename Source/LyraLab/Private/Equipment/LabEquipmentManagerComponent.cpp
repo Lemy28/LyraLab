@@ -12,9 +12,9 @@ FString FLabEquipmentEntry::GetDebugString()
 	return "";
 }
 
-void FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition)
+ULabEquipmentInstance* FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition)
 {
-	check(OwningComponent != nullptr);
+	check(OwnerComponent != nullptr);
 	check(EquipmentDefinition)
 
 	ULabEquipmentInstance* NewInstance = nullptr;
@@ -22,11 +22,20 @@ void FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentD
 	FLabEquipmentEntry& NewEntry = Entries.AddDefaulted_GetRef();
 	auto DefaultObject = GetDefault<ULabEquipmentDefinition>(EquipmentDefinition);
 	// auto DefaultObject =  EquipmentDefinition->StaticClass()->GetDefaultObject<ULabEquipmentDefinition>();
-	NewInstance = NewObject<ULabEquipmentInstance>(OwningComponent, DefaultObject->InstanceType);
+	NewInstance = NewObject<ULabEquipmentInstance>(OwnerComponent, DefaultObject->InstanceType);
 
 	NewEntry.Definition = EquipmentDefinition;
 	NewEntry.Instance = NewInstance;
 	//TODO: Grant Abilities
+	for (const auto& AbilitySetToGrant : DefaultObject->AbilitySetsToGrant)
+	{
+		
+	}
+	//Let the Instance Create Actors 
+	
+	NewInstance->SpawnEquipmentActors(&DefaultObject->EquipmentActors);
+	MarkItemDirty(NewEntry);
+	return NewInstance;	
 }
 
 ULabEquipmentManagerComponent::ULabEquipmentManagerComponent()

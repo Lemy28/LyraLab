@@ -33,20 +33,20 @@ struct FLabEquipmentList: public FFastArraySerializer
 {
 	GENERATED_USTRUCT_BODY()
 public:
-	FLabEquipmentList() : OwningComponent(nullptr) {}
-	FLabEquipmentList(ULabEquipmentManagerComponent* InComp) : OwningComponent(InComp) {}
+	FLabEquipmentList() : OwnerComponent(nullptr) {}
+	FLabEquipmentList(ULabEquipmentManagerComponent* InComp) : OwnerComponent(InComp) {}
 	bool NetDeltaSerialize(FNetDeltaSerializeInfo & DeltaParms)
 	{
 		return FFastArraySerializer::FastArrayDeltaSerialize<FLabEquipmentEntry, FLabEquipmentList>( Entries, DeltaParms, *this );
 	}
 
-	void AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
+	ULabEquipmentInstance* AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
 private:
 	UPROPERTY()
 	TArray<FLabEquipmentEntry>	Entries;
 
 	UPROPERTY(NotReplicated)
-	ULabEquipmentManagerComponent* OwningComponent;
+	ULabEquipmentManagerComponent* OwnerComponent;
 };
 
 template<>
