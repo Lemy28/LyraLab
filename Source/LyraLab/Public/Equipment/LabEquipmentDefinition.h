@@ -33,7 +33,7 @@ class LYRALAB_API ULabEquipmentDefinition : public UObject
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
-	TSubclassOf<ULabEquipmentInstance> LabEquipmentInstance;
+	TSubclassOf<ULabEquipmentInstance> InstanceType;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 	TArray<TObjectPtr<ULabAbilitySet>> AbilitySetsToGrant;

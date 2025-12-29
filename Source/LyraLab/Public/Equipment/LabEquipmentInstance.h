@@ -13,4 +13,5 @@ UCLASS()
 class LYRALAB_API ULabEquipmentInstance : public UObject
 {
 	GENERATED_BODY()
+	
 };

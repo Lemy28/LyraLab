@@ -7,7 +7,7 @@
 #include "AbilitySystem/LabAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
 
-void FLyraAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbilitySpecHandle& Handle)
+void FLabAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbilitySpecHandle& Handle)
 {
 	if (Handle.IsValid())
 	{
@@ -15,7 +15,7 @@ void FLyraAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbility
 	}
 }
 
-void FLyraAbilitySet_GrantedHandles::AddGameplayEffectHandle(const FActiveGameplayEffectHandle& Handle)
+void FLabAbilitySet_GrantedHandles::AddGameplayEffectHandle(const FActiveGameplayEffectHandle& Handle)
 {
 	if (Handle.IsValid())
 	{
@@ -23,12 +23,12 @@ void FLyraAbilitySet_GrantedHandles::AddGameplayEffectHandle(const FActiveGamepl
 	}
 }
 
-void FLyraAbilitySet_GrantedHandles::AddAttributeSet(UAttributeSet* Set)
+void FLabAbilitySet_GrantedHandles::AddAttributeSet(UAttributeSet* Set)
 {
 	GrantedAttributeSets.Add(Set);
 }
 
-void FLyraAbilitySet_GrantedHandles::TakeFromAbilitySystem(ULabAbilitySystemComponent* LyraASC)
+void FLabAbilitySet_GrantedHandles::TakeFromAbilitySystem(ULabAbilitySystemComponent* LyraASC)
 {
 	check(LyraASC);
 
@@ -69,7 +69,7 @@ ULabAbilitySet::ULabAbilitySet()
 }
 
 void ULabAbilitySet::GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC,
-                                        FLyraAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject) const
+                                        FLabAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject) const
 {
 	check(LyraASC);
 

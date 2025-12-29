@@ -4,12 +4,14 @@
 
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
+#include "ActiveGameplayEffectHandle.h"
+#include "GameplayAbilitySpecHandle.h"
 #include "LabAbilitySet.generated.h"
 
 
 class ULabAbilitySystemComponent;
-struct FActiveGameplayEffectHandle;
-struct FGameplayAbilitySpecHandle;
+// struct FActiveGameplayEffectHandle;
+// struct FGameplayAbilitySpecHandle;
 class ULabGameplayAbility;
 class UGameplayEffect;
 class UAttributeSet;
@@ -79,12 +81,12 @@ public:
 
 
 /**
- * FLyraAbilitySet_GrantedHandles
+ * FLabAbilitySet_GrantedHandles
  *
  *	Data used to store handles to what has been granted by the ability set.
  */
 USTRUCT(BlueprintType)
-struct FLyraAbilitySet_GrantedHandles
+struct FLabAbilitySet_GrantedHandles
 {
 	GENERATED_BODY()
 
@@ -126,7 +128,7 @@ public:
 	ULabAbilitySet();
 	// Grants the ability set to the specified ability system component.
 	// The returned handles can be used later to take away anything that was granted.
-	void GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC, FLyraAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject = nullptr) const;
+	void GiveToAbilitySystem(ULabAbilitySystemComponent* LyraASC, FLabAbilitySet_GrantedHandles* OutGrantedHandles, UObject* SourceObject = nullptr) const;
 protected:
 
 	// Gameplay abilities to grant when this ability set is granted.
