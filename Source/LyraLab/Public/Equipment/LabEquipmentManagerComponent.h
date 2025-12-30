@@ -35,12 +35,18 @@ struct FLabEquipmentList: public FFastArraySerializer
 public:
 	FLabEquipmentList() : OwnerComponent(nullptr) {}
 	FLabEquipmentList(ULabEquipmentManagerComponent* InComp) : OwnerComponent(InComp) {}
+
+	ULabAbilitySystemComponent* GetAbilitySystemComponent() const;
+	
+	void PostReplicatedAdd(const TArrayView<int32>& AddedIndices, int32 FinalSize);
+	void PreReplicatedRemove(const TArrayView<int32>& RemovedIndices, int32 FinalSize);
 	bool NetDeltaSerialize(FNetDeltaSerializeInfo & DeltaParms)
 	{
 		return FFastArraySerializer::FastArrayDeltaSerialize<FLabEquipmentEntry, FLabEquipmentList>( Entries, DeltaParms, *this );
 	}
 
 	ULabEquipmentInstance* AddEntry(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
+	void RemoveEntry(ULabEquipmentInstance* InInstance);
 private:
 	UPROPERTY()
 	TArray<FLabEquipmentEntry> Entries;
@@ -65,12 +71,16 @@ class LYRALAB_API ULabEquipmentManagerComponent : public UActorComponent
 
 public:
 	ULabEquipmentManagerComponent();
-
+	//test
 	UFUNCTION(BlueprintCallable, Category = "Lab|Equipment")
 	void GetDefaultEquipment();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lab|Equipment")
 	TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition;
+
+
+	void EquipItem(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
+	void UnequipItem(ULabEquipmentInstance* EquipmentInstance);
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 private:
