@@ -18,10 +18,20 @@ class LYRALAB_API ULabEquipmentInstance : public UObject
 public:
 	ULabEquipmentInstance();
 	void SpawnEquipmentActors(const TArray<FLabEquipmentActorToSpawn>& EquipmentActors);
+	void DestroyEquipmentActors();
 
-
+	virtual void OnEquipped();
+	virtual void OnUnequipped();
+	
 	APawn* GetPawn();
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Equipment", meta = (DisplayName = "OnEquipped"))
+	void K2_OnEquipped();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Equipment", meta = (DisplayName = "OnUnequipped"))
+	void K2_OnUnequipped();
+	
 private:
 	UPROPERTY()
-	TArray<AActor*> SpawnedActors;
+	TArray<TObjectPtr<AActor>> SpawnedActors;
 };

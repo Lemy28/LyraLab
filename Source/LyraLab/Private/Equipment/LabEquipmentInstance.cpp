@@ -22,19 +22,35 @@ void ULabEquipmentInstance::SpawnEquipmentActors(const TArray<FLabEquipmentActor
 		
 		for (const auto& EquipmentActorToSpawn : EquipmentActors)
 		{
-			FActorSpawnParameters SpawnParams;
 			AActor* NewActor = GetWorld()->SpawnActorDeferred<AActor>(EquipmentActorToSpawn.ActorToSpawn, FTransform::Identity, OwningPawn);
 			NewActor->FinishSpawning(FTransform::Identity, true);
 			NewActor->SetActorRelativeTransform(EquipmentActorToSpawn.AttachTransform);
 			NewActor->AttachToComponent(TargetComponent, FAttachmentTransformRules::KeepRelativeTransform, EquipmentActorToSpawn.AttachSocket);
 
 			SpawnedActors.Add(NewActor);
-			
 		}
-		
 	}
-	
+}
 
+void ULabEquipmentInstance::DestroyEquipmentActors()
+{
+	for (AActor* SpawnedActor : SpawnedActors)
+	{
+		if (SpawnedActor != nullptr)
+		{
+			SpawnedActor->Destroy();
+		}
+	}
+}
+
+void ULabEquipmentInstance::OnEquipped()
+{
+	K2_OnEquipped();
+}
+
+void ULabEquipmentInstance::OnUnequipped()
+{
+	K2_OnUnequipped();
 }
 
 APawn* ULabEquipmentInstance::GetPawn()
