@@ -21,7 +21,7 @@ public:
  * 
  */
 UCLASS()
-class LYRALAB_API ULabInventoryItemDefinition : public UObject
+class ULabInventoryItemDefinition : public UObject
 {
 	GENERATED_BODY()
 
@@ -31,4 +31,17 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory")//, Instanced?
 	TArray<TObjectPtr<ULabInventoryFragment>> Fragments;
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	const ULabInventoryFragment* FindFragmentByClass(TSubclassOf<ULabInventoryFragment> FragmentClass) const;
+	
+};
+
+UCLASS()
+class ULabInventoryFunctionLibrary : public UBlueprintFunctionLibrary
+{
+	GENERATED_BODY()
+public:
+	static const ULabInventoryFragment* FindItemDefinitionFragment(TSubclassOf<ULabInventoryItemDefinition> ItemDef, TSubclassOf<ULabInventoryFragment> FragmentClass);
 };

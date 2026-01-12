@@ -2,12 +2,18 @@
 
 #include "Inventory/LabInventoryManagerComponent.h"
 
+#include "Inventory/InventoryFragment_StackFragment.h"
 #include "Inventory/LabInventoryItemDefinition.h"
 #include "Inventory/LabInventoryItemInstance.h"
 #include "Net/UnrealNetwork.h"
 
 ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount)
 {
+	check(ItemDefinition);
+	check(OwnerComponent);
+	check(OwnerComponent->GetOwnerRole() == ROLE_Authority);
+
+	
 	FLabInventoryEntry& NewEntry = Entries.AddDefaulted_GetRef();
 
 	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent);
@@ -49,6 +55,23 @@ ULabInventoryManagerComponent::ULabInventoryManagerComponent()
 	: InventoryList(this)
 {
 	SetIsReplicatedByDefault(true);
+}
+
+ULabInventoryItemInstance* ULabInventoryManagerComponent::AddItemDefinition(
+	TSubclassOf<ULabInventoryItemDefinition> ItemDef, int32 StackCount)
+{
+	ULabInventoryItemInstance* Result = nullptr;
+
+	if (ItemDef && StackCount > 0)
+	{
+		Result = InventoryList.AddEntry(ItemDef, StackCount);
+		if (IsUsingRegisteredSubObjectList() && IsReadyForReplication() && Result)
+		{
+			AddReplicatedSubObject(Result);
+		}
+	}
+	
+	return Result;
 }
 
 void ULabInventoryManagerComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
