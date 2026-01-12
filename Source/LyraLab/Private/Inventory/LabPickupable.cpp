@@ -3,6 +3,8 @@
 
 #include "Inventory/LabPickupable.h"
 
+#include "Inventory/LabInventoryManagerComponent.h"
+
 
 TScriptInterface<ILabPickupable> ULabInventoryBlueprintLibrary::GetPickupableFromActor(AActor* Actor)
 {
@@ -17,6 +19,6 @@ void ULabInventoryBlueprintLibrary::AddPickupableToInventory(ULabInventoryManage
 	if (InventoryManagerComponent && LabPickupable)
 	{
 		const FInventoryPickup& InventoryPickup = LabPickupable->GetPickup();
-		InventoryManagerComponent->add
+		InventoryManagerComponent->AddItemDefinition(InventoryPickup.ItemDefinitionClass, InventoryPickup.StackCount);
 	}
 }

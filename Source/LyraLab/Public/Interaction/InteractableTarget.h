@@ -25,8 +25,8 @@ public:
 		OptionEntry.InteractableTarget = Scope;
 	}
 private:
-	TArray<FInteractionOption>& Options; //
 	TScriptInterface<IInteractableTarget> Scope;
+	TArray<FInteractionOption>& Options; //
 };
 
 

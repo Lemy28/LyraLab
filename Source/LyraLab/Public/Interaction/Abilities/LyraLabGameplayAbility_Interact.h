@@ -21,7 +21,7 @@ public:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateInteractions(const TArray<FInteractionOption>& InteractableTargets);
+	void UpdateInteractions(const TArray<FInteractionOption>& InteractiveOptions);
 
 	UFUNCTION(BlueprintCallable)
 	void TriggerInteractions();

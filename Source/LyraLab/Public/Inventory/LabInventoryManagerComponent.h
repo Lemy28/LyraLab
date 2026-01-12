@@ -91,7 +91,6 @@ class LYRALAB_API ULabInventoryManagerComponent : public UActorComponent
 public:
     ULabInventoryManagerComponent();
 
-	ULabInventoryItemInstance* AddItemDefinition(TSubclassOf<ULabInventoryItemDefinition> ItemDef, int32 StackCount);
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category = "Inventory")

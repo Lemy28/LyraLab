@@ -10,17 +10,17 @@ class ULabInventoryItemDefinition;
 class ULabInventoryManagerComponent;
 
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FInventoryPickup
 {
 	GENERATED_BODY()
 	
-	int32 StackCount = 1;
+	int32 StackCount = 1; 
 	TSubclassOf<ULabInventoryItemDefinition> ItemDefinitionClass = nullptr;	 
 };
 
 // This class does not need to be modified.
-UINTERFACE()
+UINTERFACE(NotBlueprintable)
 class ULabPickupable : public UInterface
 {
 	GENERATED_BODY()
