@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LabInventoryItemDefinition.h"
-#include "InventoryFragment_StackFragment.generated.h"
+#include "InventoryFragment_Stackable.generated.h"
 
 USTRUCT(BlueprintType)
 struct FInventoryStackDefinition
@@ -23,7 +23,7 @@ struct FInventoryStackDefinition
  * This class is used for extending the behavior of lyra starter game's inventory stack logic 
  */
 UCLASS()
-class LYRALAB_API UInventoryFragment_StackFragment : public ULabInventoryFragment
+class LYRALAB_API UInventoryFragment_Stackable : public ULabInventoryFragment
 {
 	GENERATED_BODY()
 
