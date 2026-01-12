@@ -2,7 +2,6 @@
 
 #include "Inventory/LabInventoryManagerComponent.h"
 
-#include "Inventory/InventoryFragment_StackFragment.h"
 #include "Inventory/LabInventoryItemDefinition.h"
 #include "Inventory/LabInventoryItemInstance.h"
 #include "Net/UnrealNetwork.h"
@@ -16,7 +15,7 @@ ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventory
 	
 	FLabInventoryEntry& NewEntry = Entries.AddDefaulted_GetRef();
 
-	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent);
+	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent->GetOwner());
 	NewEntry.StackCount = StackCount;
 	NewEntry.Instance->SetItemDef(ItemDefinition);
 	
@@ -80,3 +79,5 @@ void ULabInventoryManagerComponent::GetLifetimeReplicatedProps(TArray<class FLif
 
 	DOREPLIFETIME(ThisClass, InventoryList);
 }
+
+

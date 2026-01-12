@@ -56,8 +56,15 @@ ULabEquipmentInstance* FLabEquipmentList::AddEntry(TSubclassOf<ULabEquipmentDefi
 	
 	FLabEquipmentEntry& NewEntry = Entries.AddDefaulted_GetRef();
 	const ULabEquipmentDefinition* DefaultObject = GetDefault<ULabEquipmentDefinition>(EquipmentDefinition);
+
+	TSubclassOf<ULabEquipmentInstance> InstanceType = DefaultObject->InstanceType;
+	if (InstanceType == nullptr)
+	{
+		//未配置InstanceType则用默认的基类
+		InstanceType = ULabEquipmentInstance::StaticClass();
+	}
 	//Using the actor instead of component as the outer due to UE-127172
-	NewInstance = NewObject<ULabEquipmentInstance>(OwnerComponent->GetOuter(), DefaultObject->InstanceType);
+	NewInstance = NewObject<ULabEquipmentInstance>(OwnerComponent->GetOuter(), InstanceType);
 	
 	NewEntry.Definition = EquipmentDefinition;
 	NewEntry.Instance = NewInstance;

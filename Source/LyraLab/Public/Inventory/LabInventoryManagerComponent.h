@@ -92,8 +92,10 @@ public:
     ULabInventoryManagerComponent();
 
 	ULabInventoryItemInstance* AddItemDefinition(TSubclassOf<ULabInventoryItemDefinition> ItemDef, int32 StackCount);
-	// virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
-	
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category = "Inventory")
+	ULabInventoryItemInstance* AddItemDefinition(TSubclassOf<ULabInventoryItemDefinition> ItemDef, int32 StackCount = 1);
 private:
 	UPROPERTY(Replicated)
 	FLabInventoryList InventoryList;
