@@ -2,8 +2,10 @@
 
 #include "Inventory/LabInventoryManagerComponent.h"
 
+#include "Inventory/InventoryFragment_Stackable.h"
 #include "Inventory/LabInventoryItemDefinition.h"
 #include "Inventory/LabInventoryItemInstance.h"
+#include "Inventory/LabPickupable.h"
 #include "Net/UnrealNetwork.h"
 
 ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount)
@@ -18,6 +20,7 @@ ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventory
 	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent->GetOwner());
 	NewEntry.StackCount = StackCount;
 	NewEntry.Instance->SetItemDef(ItemDefinition);
+	// NewEntry.Definition = ItemDefinition;
 	
 	auto ItemCDO = ItemDefinition->GetDefaultObject<ULabInventoryItemDefinition>();
 	if (ItemCDO)
@@ -29,7 +32,34 @@ ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventory
 	}
 	MarkItemDirty(NewEntry);
 	return NewEntry.Instance;
-} 
+}
+
+int32 FLabInventoryList::StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition)
+{
+	check(ItemDefinition);
+	check(OwnerComponent);
+	check(OwnerComponent->GetOwnerRole() == ROLE_Authority);
+
+	const UInventoryFragment_Stackable* StackableFragment = Cast<UInventoryFragment_Stackable>(ULabInventoryFunctionLibrary::FindItemDefinitionFragment(ItemDefinition, UInventoryFragment_Stackable::StaticClass()));
+	check(StackableFragment)
+	
+	for (auto& Entry : Entries)                                                                                                                                                                                      │
+	{                                                                                                                                                                                                                      │
+		if (Entry.Definition == ItemDefinition)                                                                                                                                                                            │
+		{
+			Entry.StackCount += StackableFragment->StackCount;
+			MarkItemDirty(Entry);
+			return Entry.StackCount;
+		}
+	}
+
+	FLabInventoryEntry& NewEntry = Entries.AddDefaulted_GetRef();
+	NewEntry.StackCount = StackableFragment->StackCount;
+	NewEntry.Definition = ItemDefinition;
+	MarkItemDirty(NewEntry);
+	
+	return NewEntry.StackCount;
+}
 
 void FLabInventoryList::AddEntry(ULabInventoryItemInstance* InventoryItemInstance)
 {

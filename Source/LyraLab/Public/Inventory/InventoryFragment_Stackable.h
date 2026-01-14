@@ -6,19 +6,6 @@
 #include "LabInventoryItemDefinition.h"
 #include "InventoryFragment_Stackable.generated.h"
 
-USTRUCT(BlueprintType)
-struct FInventoryStackDefinition
-{
-	GENERATED_BODY()
-	
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	int32 StackCount;
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	int32 MaxStackCount;
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	int32 TotalStackCount = 999;
-};
-
 /**
  * This class is used for extending the behavior of lyra starter game's inventory stack logic 
  */
@@ -29,5 +16,9 @@ class LYRALAB_API UInventoryFragment_Stackable : public ULabInventoryFragment
 
 public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	FInventoryStackDefinition StackDefinition;
+	int32 StackCount;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	int32 MaxStackCount;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	int32 MaxTotalCount = 999;
 };

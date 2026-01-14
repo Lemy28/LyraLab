@@ -23,6 +23,9 @@ struct FLabInventoryEntry : public FFastArraySerializerItem
 	UPROPERTY()
 	int32 StackCount = 0;
 
+	UPROPERTY()
+	TSubclassOf<ULabInventoryItemDefinition> Definition = nullptr;
+	
 	// UPROPERTY(NotReplicated)
 	// int32 LastObservedCount = INDEX_NONE;
 
@@ -54,6 +57,8 @@ struct FLabInventoryList : public FFastArraySerializer
 	UPROPERTY()
 	TArray<FLabInventoryEntry> Entries;
 	ULabInventoryItemInstance* AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount);
+	int32 StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition);
+
 	void AddEntry(ULabInventoryItemInstance* InventoryItemInstance);
     void RemoveEntry(ULabInventoryItemInstance* InventoryItemInstance);
 
