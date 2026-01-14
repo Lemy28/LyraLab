@@ -42,9 +42,9 @@ int32 FLabInventoryList::StackEntry(TSubclassOf<ULabInventoryItemDefinition> Ite
 	check(OwnerComponent->GetOwnerRole() == ROLE_Authority);
 	check(StackableFragment)
 	
-	for (auto& Entry : Entries)                                                                                                                                                                                      │
-	{                                                                                                                                                                                                                      │
-		if (Entry.Definition == ItemDefinition)                                                                                                                                                                            │
+	for (auto& Entry : Entries)                                                                                                                                                                                      
+	{                                                                                                                                                                                                                      
+		if (Entry.Definition == ItemDefinition)                                                                                                                                                                            
 		{
 			Entry.StackCount += StackableFragment->StackCount;
 			MarkItemDirty(Entry);

@@ -1,14 +1,16 @@
-﻿// Copyright Lemy. All Rights Reserved.
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "UObject/Object.h"
+#include "Components/SceneComponent.h"
+#include "Types/SlateEnums.h"
+
 #include "IndicatorDescriptor.generated.h"
+
 
 class SWidget;
 class UIndicatorDescriptor;
-class ULyraLabIndicatorManagerComponent;
+class ULyraIndicatorManagerComponent;
 class UUserWidget;
 struct FFrame;
 struct FSceneViewProjectionData;
@@ -32,13 +34,13 @@ enum class EActorCanvasProjectionMode : uint8
  * Describes and controls an active indicator.  It is highly recommended that your widget implements
  * IActorIndicatorWidget so that it can 'bind' to the associated data.
  */
-UCLASS(BlueprintType)
-class LYRALAB_API UIndicatorDescriptor : public UObject
+UCLASS(MinimalAPI, BlueprintType)
+class UIndicatorDescriptor : public UObject
 {
 	GENERATED_BODY()
 	
 public:
-	UIndicatorDescriptor();
+	UIndicatorDescriptor() { }
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -180,11 +182,11 @@ public:
 	}
 
 public:
-	ULyraLabIndicatorManagerComponent* GetIndicatorManagerComponent() { return ManagerPtr.Get(); }
-	void SetIndicatorManagerComponent(ULyraLabIndicatorManagerComponent* InManager);
+	ULyraIndicatorManagerComponent* GetIndicatorManagerComponent() { return ManagerPtr.Get(); }
+	 void SetIndicatorManagerComponent(ULyraIndicatorManagerComponent* InManager);
 	
 	UFUNCTION(BlueprintCallable)
-	void UnregisterIndicator();
+	 void UnregisterIndicator();
 
 private:
 	UPROPERTY()
@@ -231,8 +233,9 @@ private:
 	TSoftClassPtr<UUserWidget> IndicatorWidgetClass;
 
 	UPROPERTY()
-	TWeakObjectPtr<ULyraLabIndicatorManagerComponent> ManagerPtr;
+	TWeakObjectPtr<ULyraIndicatorManagerComponent> ManagerPtr;
 
 	TWeakPtr<SWidget> Content;
 	TWeakPtr<SWidget> CanvasHost;
 };
+

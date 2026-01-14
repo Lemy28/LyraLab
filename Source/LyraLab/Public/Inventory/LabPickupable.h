@@ -56,7 +56,7 @@ class ULabPickupable : public UInterface
 /**
  * 
  */
-class LabLAB_API ILabPickupable
+class LYRALAB_API ILabPickupable
 {
 	GENERATED_BODY()
 

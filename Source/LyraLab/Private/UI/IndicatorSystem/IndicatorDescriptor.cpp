@@ -1,13 +1,12 @@
-﻿// Copyright Lemy. All Rights Reserved.
-
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "UI/IndicatorSystem/IndicatorDescriptor.h"
 
 #include "Engine/LocalPlayer.h"
 #include "SceneView.h"
-#include "UI/IndicatorSystem/LyraLabIndicatorManagerComponent.h"
-UIndicatorDescriptor::UIndicatorDescriptor()
-{ }
+#include "UI/IndicatorSystem/LyraIndicatorManagerComponent.h"
+
+#include UE_INLINE_GENERATED_CPP_BY_NAME(IndicatorDescriptor)
 
 bool FIndicatorProjection::Project(const UIndicatorDescriptor& IndicatorDescriptor, const FSceneViewProjectionData& InProjectionData, const FVector2f& ScreenSize, FVector& OutScreenPositionWithDepth)
 {
@@ -123,7 +122,7 @@ bool FIndicatorProjection::Project(const UIndicatorDescriptor& IndicatorDescript
 	return false;
 }
 
-void UIndicatorDescriptor::SetIndicatorManagerComponent(ULyraLabIndicatorManagerComponent* InManager)
+void UIndicatorDescriptor::SetIndicatorManagerComponent(ULyraIndicatorManagerComponent* InManager)
 {
 	// Make sure nobody has set this.
 	if (ensure(ManagerPtr.IsExplicitlyNull()))
@@ -134,7 +133,7 @@ void UIndicatorDescriptor::SetIndicatorManagerComponent(ULyraLabIndicatorManager
 
 void UIndicatorDescriptor::UnregisterIndicator()
 {
-	if (ULyraLabIndicatorManagerComponent* Manager = ManagerPtr.Get())
+	if (ULyraIndicatorManagerComponent* Manager = ManagerPtr.Get())
 	{
 		Manager->RemoveIndicator(this);
 	}

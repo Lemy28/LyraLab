@@ -11,7 +11,7 @@
 #include "Interaction/Task/AbilityTask_GrantNearbyInteraction.h"
 #include "Player/LabPlayerController.h"
 #include "UI/IndicatorSystem/IndicatorDescriptor.h"
-#include "UI/IndicatorSystem/LyraLabIndicatorManagerComponent.h"
+#include "UI/IndicatorSystem/LyraIndicatorManagerComponent.h"
 
 UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Ability_Interaction_Activate, "Ability.Interaction.Activate");
 
@@ -41,7 +41,7 @@ void ULyraLabGameplayAbility_Interact::UpdateInteractions(
 {
 	if (ALabPlayerController* PC = GetLabPlayerControllerFromActorInfo())
 	{
-		if (ULyraLabIndicatorManagerComponent* IndicatorManager = ULyraLabIndicatorManagerComponent::GetComponent(PC))
+		if (ULyraIndicatorManagerComponent* IndicatorManager = ULyraIndicatorManagerComponent::GetComponent(PC))
 		{
 			for (UIndicatorDescriptor* Indicator : Indicators)
 			{

@@ -21,7 +21,9 @@ public class LyraLab : ModuleRules
 			"GameplayTasks",
 			"GameplayTags",
 			"SlateCore", 
-			"ALS"
+			"ALS",
+			"AsyncMixin",
+			"Slate"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "ALSCamera" });
