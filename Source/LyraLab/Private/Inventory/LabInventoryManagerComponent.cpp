@@ -11,16 +11,17 @@
 ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount)
 {
 	check(ItemDefinition);
+	check(StackCount > 0)
 	check(OwnerComponent);
 	check(OwnerComponent->GetOwnerRole() == ROLE_Authority);
-
+	
 	
 	FLabInventoryEntry& NewEntry = Entries.AddDefaulted_GetRef();
 
 	NewEntry.Instance = NewObject<ULabInventoryItemInstance>(OwnerComponent->GetOwner());
 	NewEntry.StackCount = StackCount;
 	NewEntry.Instance->SetItemDef(ItemDefinition);
-	// NewEntry.Definition = ItemDefinition;
+	NewEntry.Definition = ItemDefinition;
 	
 	auto ItemCDO = ItemDefinition->GetDefaultObject<ULabInventoryItemDefinition>();
 	if (ItemCDO)
@@ -34,13 +35,11 @@ ULabInventoryItemInstance* FLabInventoryList::AddEntry(TSubclassOf<ULabInventory
 	return NewEntry.Instance;
 }
 
-int32 FLabInventoryList::StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition)
+int32 FLabInventoryList::StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, const UInventoryFragment_Stackable* StackableFragment)
 {
 	check(ItemDefinition);
 	check(OwnerComponent);
 	check(OwnerComponent->GetOwnerRole() == ROLE_Authority);
-
-	const UInventoryFragment_Stackable* StackableFragment = Cast<UInventoryFragment_Stackable>(ULabInventoryFunctionLibrary::FindItemDefinitionFragment(ItemDefinition, UInventoryFragment_Stackable::StaticClass()));
 	check(StackableFragment)
 	
 	for (auto& Entry : Entries)                                                                                                                                                                                      │
@@ -91,12 +90,19 @@ ULabInventoryItemInstance* ULabInventoryManagerComponent::AddItemDefinition(
 {
 	ULabInventoryItemInstance* Result = nullptr;
 
-	if (ItemDef && StackCount > 0)
+	if (ItemDef)
 	{
-		Result = InventoryList.AddEntry(ItemDef, StackCount);
-		if (IsUsingRegisteredSubObjectList() && IsReadyForReplication() && Result)
+		if (const UInventoryFragment_Stackable* StackableFragment = Cast<UInventoryFragment_Stackable>(ULabInventoryFunctionLibrary::FindItemDefinitionFragment(ItemDef, UInventoryFragment_Stackable::StaticClass())))
 		{
-			AddReplicatedSubObject(Result);
+			InventoryList.StackEntry(ItemDef, StackableFragment);
+		}
+		else
+		{
+			Result = InventoryList.AddEntry(ItemDef, StackCount);
+			if (IsUsingRegisteredSubObjectList() && IsReadyForReplication() && Result)
+			{
+				AddReplicatedSubObject(Result);
+			}
 		}
 	}
 	

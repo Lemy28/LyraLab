@@ -12,5 +12,5 @@ ALabWorldPickupable::ALabWorldPickupable()
 
 FInventoryPickup ALabWorldPickupable::GetPickup() const
 {
-	return Pickup;
+	return StaticInventory;
 }

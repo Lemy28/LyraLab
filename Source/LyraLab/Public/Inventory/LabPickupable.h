@@ -8,15 +8,42 @@
 
 class ULabInventoryItemDefinition;
 class ULabInventoryManagerComponent;
+class ULabInventoryItemInstance;
 
+// USTRUCT(BlueprintType)
+// struct FPickupTemplate
+// {
+// 	GENERATED_BODY()
+//
+// public:
+// 	UPROPERTY(EditAnywhere)
+// 	int32 StackCount = 1;
+//
+// 	UPROPERTY(EditAnywhere)
+// 	TSubclassOf<ULabInventoryItemDefinition> ItemDef;
+// };
+
+USTRUCT(BlueprintType)
+struct FPickupInstance
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<ULabInventoryItemInstance> Item = nullptr;
+};
 
 USTRUCT(BlueprintType)
 struct FInventoryPickup
 {
 	GENERATED_BODY()
-	
-	int32 StackCount = 1; 
-	TSubclassOf<ULabInventoryItemDefinition> ItemDefinitionClass = nullptr;	 
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FPickupInstance> Instances;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<TSubclassOf<ULabInventoryItemDefinition>> Definitions;
 };
 
 // This class does not need to be modified.
@@ -29,7 +56,7 @@ class ULabPickupable : public UInterface
 /**
  * 
  */
-class LYRALAB_API ILabPickupable
+class LabLAB_API ILabPickupable
 {
 	GENERATED_BODY()
 
@@ -40,7 +67,7 @@ public:
 };
 
 UCLASS()
-class ULabInventoryBlueprintLibrary : public UBlueprintFunctionLibrary
+class ULabPickupableStatics : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

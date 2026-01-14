@@ -18,6 +18,8 @@ public:
 	ALabWorldPickupable();
 	UFUNCTION()
 	virtual FInventoryPickup GetPickup() const override;
+	
 private:
-	FInventoryPickup Pickup;
+	UPROPERTY(EditAnywhere)
+	FInventoryPickup StaticInventory;
 };

@@ -7,6 +7,7 @@
 
 #include "LabInventoryManagerComponent.generated.h"
 
+class UInventoryFragment_Stackable;
 class ULabInventoryItemInstance;
 class ULabInventoryItemDefinition;
 class ULabInventoryManagerComponent;
@@ -57,7 +58,7 @@ struct FLabInventoryList : public FFastArraySerializer
 	UPROPERTY()
 	TArray<FLabInventoryEntry> Entries;
 	ULabInventoryItemInstance* AddEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, int32 StackCount);
-	int32 StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition);
+	int32 StackEntry(TSubclassOf<ULabInventoryItemDefinition> ItemDefinition, const UInventoryFragment_Stackable* StackableFragment);
 
 	void AddEntry(ULabInventoryItemInstance* InventoryItemInstance);
     void RemoveEntry(ULabInventoryItemInstance* InventoryItemInstance);
