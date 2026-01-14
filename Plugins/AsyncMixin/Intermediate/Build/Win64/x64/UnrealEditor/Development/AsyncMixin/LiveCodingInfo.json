@@ -1,5 +1,10 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.AsyncMixin.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
+			"AsyncMixin.cpp.obj",
+			"AsyncMixinModule.cpp.obj"
+		]
 	}
 }
