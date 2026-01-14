@@ -1,7 +1,7 @@
 ﻿// Copyright Lemy. All Rights Reserved.
 
 
-#include "Interaction/Abilities/LyraLabGameplayAbility_Interact.h"
+#include "Interaction/Abilities/LabGameplayAbility_Interact.h"
 #include "NativeGameplayTags.h"
 
 #include "AbilitySystemComponent.h"
@@ -16,14 +16,14 @@
 UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Ability_Interaction_Activate, "Ability.Interaction.Activate");
 
 
-ULyraLabGameplayAbility_Interact::ULyraLabGameplayAbility_Interact()
+ULabGameplayAbility_Interact::ULabGameplayAbility_Interact()
 {
 	ActivationPolicy = ELyraAbilityActivationPolicy::OnSpawn;
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::LocalPredicted;
 }
 
-void ULyraLabGameplayAbility_Interact::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
+void ULabGameplayAbility_Interact::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                                        const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
                                                        const FGameplayEventData* TriggerEventData)
 {
@@ -36,7 +36,7 @@ void ULyraLabGameplayAbility_Interact::ActivateAbility(const FGameplayAbilitySpe
 	}
 }
 
-void ULyraLabGameplayAbility_Interact::UpdateInteractions(
+void ULabGameplayAbility_Interact::UpdateInteractions(
 	const TArray<FInteractionOption>& InteractiveOptions)
 {
 	if (ALabPlayerController* PC = GetLabPlayerControllerFromActorInfo())
@@ -74,7 +74,7 @@ void ULyraLabGameplayAbility_Interact::UpdateInteractions(
 	CurrentOptions = InteractiveOptions;
 }
 
-void ULyraLabGameplayAbility_Interact::TriggerInteractions()
+void ULabGameplayAbility_Interact::TriggerInteractions()
 {
 	if (CurrentOptions.Num() == 0)
 	{

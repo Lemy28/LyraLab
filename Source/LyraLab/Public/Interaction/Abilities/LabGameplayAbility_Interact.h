@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Abilities/LabGameplayAbility.h"
-#include "LyraLabGameplayAbility_Interact.generated.h"
+#include "LabGameplayAbility_Interact.generated.h"
 
 class UIndicatorDescriptor;
 class IInteractableTarget;
@@ -13,11 +13,11 @@ struct FInteractionOption;
  * 
  */
 UCLASS()
-class LYRALAB_API ULyraLabGameplayAbility_Interact : public ULabGameplayAbility
+class LYRALAB_API ULabGameplayAbility_Interact : public ULabGameplayAbility
 {
 	GENERATED_BODY()
 public:
-	ULyraLabGameplayAbility_Interact();
+	ULabGameplayAbility_Interact();
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	UFUNCTION(BlueprintCallable)

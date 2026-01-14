@@ -16,7 +16,7 @@ struct FFrame;
  * @class ULyraIndicatorManagerComponent
  */
 UCLASS(MinimalAPI, BlueprintType, Blueprintable)
-class ULyraIndicatorManagerComponent : public UControllerComponent
+class ULyraIndicatorManagerComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
