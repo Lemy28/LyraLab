@@ -47,7 +47,7 @@ public:
 };
 
 // This class does not need to be modified.
-UINTERFACE(NotBlueprintable)
+UINTERFACE(NotBlueprintable, BlueprintType)
 class ULabPickupable : public UInterface
 {
 	GENERATED_BODY()

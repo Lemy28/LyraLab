@@ -90,7 +90,7 @@ struct TStructOpsTypeTraits<FLabInventoryList> : public TStructOpsTypeTraitsBase
 /**
  * Component that manages an inventory of items
  */
-UCLASS(Blueprintable)
+UCLASS(Blueprintable, meta = (BlueprintSpawnableComponent))
 class LYRALAB_API ULabInventoryManagerComponent : public UActorComponent
 {
     GENERATED_BODY()
