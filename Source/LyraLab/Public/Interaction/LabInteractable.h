@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "InteractableTarget.h"
 #include "GameFramework/Actor.h"
-#include "LyraLabInteractable.generated.h"
+#include "LabInteractable.generated.h"
 
 UCLASS()
-class LYRALAB_API ALyraLabInteractable : public AActor, public IInteractableTarget
+class LYRALAB_API ALabInteractable : public AActor, public IInteractableTarget
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ALyraLabInteractable();
+	ALabInteractable();
 
 	virtual void GatherInteractionOptions(const FInteractionQuery& InteractQuery, FInteractionOptionBuilder& OptionBuilder) override;
 protected:

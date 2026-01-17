@@ -46,6 +46,10 @@
 		{
 			"Name": "AsyncMixin",
 			"Enabled": true
+		},
+		{
+			"Name": "MotionWarping",
+			"Enabled": true
 		}
 	]
 }

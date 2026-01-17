@@ -48,6 +48,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayAbilitySpecHandle TargetInteractionAbilityHandle;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTag AbilityInputTag;
 	// UI
 	//--------------------------------------------------------------
 

@@ -107,10 +107,10 @@ ULabEquipmentManagerComponent::ULabEquipmentManagerComponent()
 	SetIsReplicatedByDefault(true);
 }
 
-void ULabEquipmentManagerComponent::GetDefaultEquipment()
-{
-	EquipmentList.AddEntry(EquipmentDefinition);
-}
+// void ULabEquipmentManagerComponent::GetDefaultEquipment()
+// {
+// 	EquipmentList.AddEntry(EquipmentDefinition);
+// }
 
 void ULabEquipmentManagerComponent::EquipItem(TSubclassOf<ULabEquipmentDefinition> InEquipmentDefinition)
 {

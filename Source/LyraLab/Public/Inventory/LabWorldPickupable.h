@@ -5,11 +5,11 @@
 #include "CoreMinimal.h"
 #include "LabPickupable.h"
 #include "GameFramework/Actor.h"
-#include "Interaction/LyraLabInteractable.h"
+#include "Interaction/LabInteractable.h"
 #include "LabWorldPickupable.generated.h"
 
 UCLASS()
-class LYRALAB_API ALabWorldPickupable : public ALyraLabInteractable, public ILabPickupable
+class LYRALAB_API ALabWorldPickupable : public ALabInteractable, public ILabPickupable
 {
 	GENERATED_BODY()
 

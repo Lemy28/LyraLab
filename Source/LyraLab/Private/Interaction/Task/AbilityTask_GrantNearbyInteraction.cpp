@@ -79,6 +79,10 @@ void UAbilityTask_GrantNearbyInteraction::QueryInteractables()
 					if (!InteractionAbilityCache.Find(ObjectKey))
 					{
 						FGameplayAbilitySpec Spec(Option.InteractionAbilityToGrant, 1, INDEX_NONE, this);
+						if (Option.AbilityInputTag.IsValid())
+						{
+							Spec.GetDynamicSpecSourceTags().AddTag(Option.AbilityInputTag);
+						}
 						FGameplayAbilitySpecHandle Handle = AbilitySystemComponent->GiveAbility(Spec);
 						InteractionAbilityCache.Add(ObjectKey, Handle);
 					}

@@ -72,11 +72,11 @@ class LYRALAB_API ULabEquipmentManagerComponent : public UActorComponent
 public:
 	ULabEquipmentManagerComponent();
 	//test
-	UFUNCTION(BlueprintCallable, Category = "Lab|Equipment")
-	void GetDefaultEquipment();
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lab|Equipment")
-	TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition;
+	// UFUNCTION(BlueprintCallable, Category = "Lab|Equipment")
+	// void GetDefaultEquipment();
+	//
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lab|Equipment")
+	// TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition;
 
 
 	void EquipItem(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);

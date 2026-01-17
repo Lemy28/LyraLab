@@ -24,7 +24,10 @@ enum class ELyraAbilityActivationPolicy : uint8
 	WhileInputActive,
 
 	// Try to activate the ability when an avatar is assigned.
-	OnSpawn
+	OnSpawn,
+	//
+	// // Try to activate the ability On event happened.
+	// OnEventHappened,
 };
 /**
  * 
