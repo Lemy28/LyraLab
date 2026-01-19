@@ -112,8 +112,23 @@ ULabEquipmentManagerComponent::ULabEquipmentManagerComponent()
 // 	EquipmentList.AddEntry(EquipmentDefinition);
 // }
 
-void ULabEquipmentManagerComponent::EquipItem(TSubclassOf<ULabEquipmentDefinition> InEquipmentDefinition)
+ULabEquipmentInstance* ULabEquipmentManagerComponent::EquipItem(TSubclassOf<ULabEquipmentDefinition> InEquipmentDefinition)
 {
+	ULabEquipmentInstance* Result = nullptr;
+	if (InEquipmentDefinition != nullptr)
+	{
+		Result = EquipmentList.AddEntry(InEquipmentDefinition);
+		if (Result != nullptr)
+		{
+			Result->OnEquipped();
+
+			if (IsUsingRegisteredSubObjectList() && IsReadyForReplication())
+			{
+				AddReplicatedSubObject(Result);
+			}
+		}
+	}
+	return Result;
 }
 
 void ULabEquipmentManagerComponent::UnequipItem(ULabEquipmentInstance* InEquipmentInstance)

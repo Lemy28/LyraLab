@@ -16,11 +16,10 @@ class LYRALAB_API ULabInventoryItemInstance : public UObject
 {
 	GENERATED_BODY()
 
-	
 private:
 	void SetItemDef(TSubclassOf<ULabInventoryItemDefinition> InItemDefinition) {ItemDefinition = InItemDefinition;}
 	friend FLabInventoryList;
-private:
+
 	
 	TSubclassOf<ULabInventoryItemDefinition> ItemDefinition;
 };

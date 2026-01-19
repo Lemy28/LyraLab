@@ -20,7 +20,7 @@ public:
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, Const, Abstract)
 class ULabInventoryItemDefinition : public UObject
 {
 	GENERATED_BODY()

@@ -79,6 +79,35 @@ void UAbilityTask_WaitForInteractableTargets_SingleLineTrace::PerformTrace()
 		else
 		{
 			DrawDebugLine(World, TraceStart, TraceEnd, DebugColor, false, InteractionScanRate);
+
+			// --- 画胶囊体 (模拟 Sweep 的形状) ---
+			int32 TraceRadius = 80;
+			// 1. 计算中点：胶囊体需要画在 Start 和 End 的正中间
+			FVector Center = (TraceStart + TraceEnd) * 0.5f;
+
+			// 2. 计算长度和方向
+			FVector TraceVector = TraceEnd - TraceStart;
+			float TraceLength = TraceVector.Size();
+    
+			// 3. 计算旋转：DrawDebugCapsule 默认是竖着的 (Z轴)，我们需要把它转到 Trace 的方向
+			// MakeFromZ 表示把 Z 轴对齐到我们的 Trace方向
+			FQuat CapsuleRot = FRotationMatrix::MakeFromZ(TraceVector).ToQuat();
+
+			// 4. 计算半高 (HalfHeight)：胶囊体的半高 = (圆柱体长度 / 2) + 半球半径
+			float HalfHeight = (TraceLength * 0.5f) + TraceRadius;
+
+			DrawDebugCapsule(
+				World, 
+				Center, 
+				HalfHeight, 
+				TraceRadius, 
+				CapsuleRot, 
+				FColor::Red, 
+				false, 
+				0.2
+			);
+
+
 		}
 	}
 #endif // ENABLE_DRAW_DEBUG

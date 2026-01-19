@@ -13,14 +13,34 @@ void UAbilityTask_WaitForInteractableTargets::LineTrace(FHitResult& OutHitResult
 
 	OutHitResult = FHitResult();
 	TArray<FHitResult> HitResults;
-	
-	World->LineTraceMultiByProfile(HitResults, Start, End, ProfileName, Params);
+
+	int32 TraceRadius = 20;
+	// 逻辑分支：如果有半径，就用 Sweep（粗线）；如果没有，还用 LineTrace（细线）
+	if (TraceRadius > 0)
+	{
+		// 1. 定义形状：创建一个球体
+		FCollisionShape Shape = FCollisionShape::MakeSphere(TraceRadius);
+
+		// 2. 执行扫掠 (Sweep)
+		// 注意：Sweep 需要一个旋转参数，对于球体来说，FQuat::Identity (无旋转) 即可
+		World->SweepMultiByProfile(HitResults, Start, End, FQuat::Identity, ProfileName, Shape, Params);
+	}
+
+	// World->LineTraceMultiByProfile(HitResults, Start, End, ProfileName, Params);
 
 	OutHitResult.TraceStart = Start;
 	OutHitResult.TraceEnd = End;
 
 	if (HitResults.Num() > 0)
 	{
+		for (const auto& Result : HitResults)
+		{
+			if (TScriptInterface<IInteractableTarget>(Result.GetActor()) || TScriptInterface<IInteractableTarget>(Result.GetComponent()))
+			{
+				OutHitResult = Result;
+				return; 
+			}
+		}
 		OutHitResult = HitResults[0];
 	}
 	

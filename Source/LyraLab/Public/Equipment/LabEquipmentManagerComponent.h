@@ -78,8 +78,8 @@ public:
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lab|Equipment")
 	// TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition;
 
-
-	void EquipItem(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly)
+	ULabEquipmentInstance* EquipItem(TSubclassOf<ULabEquipmentDefinition> EquipmentDefinition);
 	void UnequipItem(ULabEquipmentInstance* EquipmentInstance);
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;

@@ -5,9 +5,19 @@
 
 #include "Equipment/LabEquipmentDefinition.h"
 #include "GameFramework/Character.h"
+#include "Net/UnrealNetwork.h"
 
 ULabEquipmentInstance::ULabEquipmentInstance()
 {
+}
+UWorld* ULabEquipmentInstance::GetWorld() const
+{
+	if (APawn* OwningPawn = GetPawn())
+	{
+		return OwningPawn->GetWorld();
+	}
+	
+	return nullptr;
 }
 
 void ULabEquipmentInstance::SpawnEquipmentActors(const TArray<FLabEquipmentActorToSpawn>& EquipmentActors)
@@ -53,7 +63,19 @@ void ULabEquipmentInstance::OnUnequipped()
 	K2_OnUnequipped();
 }
 
-APawn* ULabEquipmentInstance::GetPawn()
+void ULabEquipmentInstance::OnRep_Instigator()
+{
+}
+
+APawn* ULabEquipmentInstance::GetPawn() const
 {
 	return Cast<APawn>(GetOuter());
+}
+
+void ULabEquipmentInstance::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ThisClass, Instigator);
+	DOREPLIFETIME(ThisClass, SpawnedActors);
 }
